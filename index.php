@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PaymentApp — Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body>
+<div class="login-container">
+  
+  <div class="brand">
+    <div class="brand-mark">P</div>
+    <div class="brand-name">Payment App</div>
+  </div>
+
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Welcome back</h1>
+      <p>Sign in to your dashboard</p>
+    </div>
+
+    <div class="alert" id="alert-message" role="alert"></div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="admin@example.com"
+          required
+          autocomplete="email"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          placeholder="Enter your password"
+          required
+          autocomplete="current-password"
+        >
+      </div>
+
+      <div class="form-options">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="remember" name="remember">
+          <label for="remember">Remember me</label>
+        </div>
+        <a href="#" class="forgot-link">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn-login" id="login-button">
+        Sign in
+      </button>
+    </form>
+
+    <div class="login-footer">
+      Don't have an account? <a href="register.php">Sign up</a>
+    </div>
+  </div>
+
+  <div class="env-badge">
+    <span class="badge">Live mode</span>
+  </div>
+
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/login.js"></script>
+</body>
+</html>
