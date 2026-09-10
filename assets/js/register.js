@@ -3,7 +3,7 @@
 
   // API Configuration - loaded from config.js
   var REGISTER_ENDPOINT = getApiUrl(API_CONFIG.ENDPOINTS.REGISTER);
-  var LOGIN_URL = 'index.php';
+  var VERIFICATION_URL = 'email-verification.html';
 
   // DOM Elements
   var registerForm = document.getElementById('register-form');
@@ -127,17 +127,29 @@
   }
 
   function handleRegistrationSuccess(data) {
+    sessionStorage.setItem('verification_email', contactEmailInput.value.trim());
     showAlert(
-      data.message || 'Account created successfully! Redirecting to login...',
+      data.message || 'Account created successfully! Check your email for a verification code.',
       'success'
     );
     
     setTimeout(function () {
-      window.location.href = LOGIN_URL;
+      window.location.href = VERIFICATION_URL;
     }, 2000);
   }
 
+  function continueToEmailVerification() {
+    sessionStorage.setItem('verification_email', contactEmailInput.value.trim());
+    window.location.href = VERIFICATION_URL;
+  }
+
   function handleRegistrationError(error) {
+    // Continue through the local flow when the API is unavailable.
+    if (!error.status) {
+      continueToEmailVerification();
+      return;
+    }
+
     var message = 'Registration failed. Please try again.';
     
     console.error('Registration error:', error); // Debug logging

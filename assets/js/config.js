@@ -9,7 +9,8 @@ var API_CONFIG = {
   ENDPOINTS: {
     LOGIN: '/Home/Login',
     REGISTER: '/Merchants/Register',
-    DASHBOARD: '/Payments/Dashboard'
+    DASHBOARD: '/Payments/Dashboard',
+    CREATE_PAYMENT: '/Payments/Create'
   }
 };
 
