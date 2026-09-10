@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment App — Merchant dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/merchant-dashboard.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">P</div>
+      <div class="brand-name">Payment App</div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-item active">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8.5" y="1.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1.5" y="8.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8.5" y="8.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+        Overview
+      </div>
+      <div class="nav-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5.5h12M2 8h12M2 10.5h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Transactions
+      </div>
+      <div class="nav-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 3.5 13.5 8 9 12.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Payouts
+      </div>
+      <div class="nav-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2.8 13.2c.6-2.3 2.7-3.7 5.2-3.7s4.6 1.4 5.2 3.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Customers
+      </div>
+      <div class="nav-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 5 2 8l3 3M11 5l3 3-3 3M9.5 3.5l-3 9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Developers
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Configure</div>
+      <div class="nav-item">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.8v1.6M8 12.6v1.6M14.2 8h-1.6M3.4 8H1.8M12.2 3.8l-1.1 1.1M4.9 11.1l-1.1 1.1M12.2 12.2l-1.1-1.1M4.9 4.9 3.8 3.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Settings
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="avatar">NA</div>
+      <div>
+        <div class="inline-strong">Nomad Retail Ltd</div>
+        <div>Live mode</div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h1>Overview</h1>
+        <div class="sub">Tuesday, 8 September 2026</div>
+      </div>
+      <div class="topbar-actions">
+        <div class="range-select">
+          Last 30 days
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5 5 6.5 8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <button class="btn-primary" id="new-payment-button" type="button">New payment</button>
+      </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-label">Total volume</div>
+        <div class="kpi-value num" id="total-volume">&#8358;0</div>
+        <div class="kpi-delta up">From successful transactions</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Successful transactions</div>
+        <div class="kpi-value num" id="successful-count">0</div>
+        <div class="kpi-delta up">Successful</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Failed transactions</div>
+        <div class="kpi-value num" id="failed-count">0</div>
+        <div class="kpi-delta down">Failed</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Available balance</div>
+        <div class="kpi-value num" id="available-balance">&#8358;0</div>
+        <div class="kpi-delta">Available in wallet</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Revenue</h2>
+          <span class="link">View breakdown</span>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-figures">
+            <div class="chart-figure">
+              <div class="fig-label">This period</div>
+              <div class="fig-value num">&#8358;48.2M</div>
+            </div>
+            <div class="chart-figure">
+              <div class="fig-label">Previous period</div>
+              <div class="fig-value num inline-muted">&#8358;42.9M</div>
+            </div>
+          </div>
+          <svg class="chart-svg" viewBox="0 0 560 160" preserveAspectRatio="none">
+            <line x1="0" y1="40" x2="560" y2="40" stroke="#E4E2DC" stroke-width="1"/>
+            <line x1="0" y1="80" x2="560" y2="80" stroke="#E4E2DC" stroke-width="1"/>
+            <line x1="0" y1="120" x2="560" y2="120" stroke="#E4E2DC" stroke-width="1"/>
+            <path d="M0,110 C40,105 60,90 100,88 C140,86 160,60 200,58 C240,56 260,95 300,92 C340,89 360,50 400,44 C440,38 460,66 500,60 C520,57 540,30 560,22" fill="none" stroke="#2B6E4E" stroke-width="2"/>
+            <path d="M0,110 C40,105 60,90 100,88 C140,86 160,60 200,58 C240,56 260,95 300,92 C340,89 360,50 400,44 C440,38 460,66 500,60 C520,57 540,30 560,22 L560,160 L0,160 Z" fill="#2B6E4E" opacity="0.06"/>
+            <circle cx="560" cy="22" r="3.5" fill="#2B6E4E"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Payouts</h2>
+          <span class="link">Manage</span>
+        </div>
+        <div class="payout-next">
+          <div class="payout-amount num">&#8358;6,114,050</div>
+          <div class="payout-date">Scheduled for 10 Sep, GTBank ****4471</div>
+        </div>
+        <div class="payout-list">
+          <div class="payout-row"><span class="pdate">3 Sep</span><span class="num">&#8358;5,220,000</span><span class="status-pill paid">Paid</span></div>
+          <div class="payout-row"><span class="pdate">27 Aug</span><span class="num">&#8358;4,890,500</span><span class="status-pill paid">Paid</span></div>
+          <div class="payout-row"><span class="pdate">20 Aug</span><span class="num">&#8358;5,760,200</span><span class="status-pill paid">Paid</span></div>
+        </div>
+      </div>
+    </div>
+
+    <form class="payment-form" id="payment-form">
+      <div><label for="payment-amount">Amount</label><input id="payment-amount" type="number" min="0.01" step="0.01" required placeholder="25000"></div>
+      <div><label for="payment-currency">Currency</label><input id="payment-currency" value="NGN" maxlength="3" required></div>
+      <div><label for="payment-key">Idempotency key</label><input id="payment-key" required placeholder="order-1001"></div>
+      <div><label for="payment-note">Description</label><input id="payment-note" placeholder="Order payment"></div>
+      <button class="btn-primary" type="submit">Create</button>
+      <div class="form-message" id="form-message"></div>
+    </form>
+
+    <div class="panel">
+      <div class="table-toolbar">
+        <input class="search-input" id="transaction-search" type="text" placeholder="Search by customer, reference">
+        <div class="filter-actions">
+          <span class="filter-chip">Status: All</span>
+          <span class="filter-chip">Method: All</span>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>Customer</th><th>Reference</th><th>Method</th><th>Date</th><th>Status</th><th class="amount-heading">Amount</th></tr></thead>
+        <tbody id="transaction-rows"><tr><td colspan="6">Loading transactions...</td></tr></tbody>
+      </table>
+      <div class="table-footer">
+        <span id="transaction-count">Loading transactions...</span>
+        <div><button class="page-btn">&lsaquo;</button><button class="page-btn">&rsaquo;</button></div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/merchant-dashboard.js"></script>
+</body>
+</html>

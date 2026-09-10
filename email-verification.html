@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PaymentApp — Verify your email</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/email-verification.css">
+</head>
+<body>
+<main class="verification-container">
+  <div class="brand">
+    <div class="brand-mark">P</div>
+    <div class="brand-name">Payment App</div>
+  </div>
+
+  <section class="verification-card" aria-labelledby="verification-title">
+    <div class="verification-header">
+      <div class="mail-icon" aria-hidden="true">@</div>
+      <h1 id="verification-title">Verify your email</h1>
+      <p>Enter the 6-digit code we sent to <strong id="email-address">your email address</strong>.</p>
+    </div>
+
+    <div class="alert" id="alert-message" role="alert"></div>
+
+    <form id="verification-form">
+      <label for="otp-1">Verification code</label>
+      <div class="otp-inputs" role="group" aria-label="6-digit verification code">
+        <input id="otp-1" class="otp-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="one-time-code" aria-label="Digit 1" required>
+        <input id="otp-2" class="otp-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Digit 2" required>
+        <input id="otp-3" class="otp-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Digit 3" required>
+        <span class="otp-divider" aria-hidden="true">-</span>
+        <input id="otp-4" class="otp-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Digit 4" required>
+        <input id="otp-5" class="otp-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Digit 5" required>
+        <input id="otp-6" class="otp-input" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" aria-label="Digit 6" required>
+      </div>
+
+      <button type="submit" class="btn-verify" id="verify-button">Verify email</button>
+    </form>
+
+    <div class="resend-row">
+      <span>Didn't receive a code?</span>
+      <button type="button" class="resend-button" id="resend-button" disabled>Resend code <span id="resend-timer">(00:30)</span></button>
+    </div>
+
+    <div class="verification-footer">
+      <a href="register.html" class="link">Back to registration</a>
+    </div>
+  </section>
+</main>
+
+<script src="assets/js/email-verification.js"></script>
+</body>
+</html>
