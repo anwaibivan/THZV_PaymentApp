@@ -9,31 +9,44 @@
 <link rel="stylesheet" href="assets/css/merchant-dashboard.css">
 </head>
 <body>
+
+<!-- Mobile Header -->
+<div class="mobile-topbar">
+  <div class="brand" style="padding:0;gap:8px;">
+    <div class="brand-mark" style="width:28px;height:28px;font-size:14px;">P</div>
+    <div class="brand-name" style="font-size:16px;">Payment App</div>
+  </div>
+  <button class="mobile-menu-btn" id="mobile-menu-toggle" type="button" aria-label="Toggle navigation menu">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
+</div>
+<div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
 <div class="app">
-  <aside class="sidebar">
+  <aside class="sidebar" id="merchant-sidebar">
     <div class="brand">
       <div class="brand-mark">P</div>
       <div class="brand-name">Payment App</div>
     </div>
 
     <div class="nav-group">
-      <div class="nav-item active">
+      <div class="nav-item active" id="nav-overview" data-tab="overview" role="button" tabindex="0">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8.5" y="1.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1.5" y="8.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8.5" y="8.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
         Overview
       </div>
-      <div class="nav-item">
+      <div class="nav-item" id="nav-transactions" data-tab="transactions" role="button" tabindex="0">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5.5h12M2 8h12M2 10.5h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
         Transactions
       </div>
-      <div class="nav-item">
+      <div class="nav-item" id="nav-payouts" data-tab="payouts" role="button" tabindex="0">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 3.5 13.5 8 9 12.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Payouts
       </div>
-      <div class="nav-item">
+      <div class="nav-item" id="nav-customers" data-tab="customers" role="button" tabindex="0">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2.8 13.2c.6-2.3 2.7-3.7 5.2-3.7s4.6 1.4 5.2 3.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
         Customers
       </div>
-      <div class="nav-item">
+      <div class="nav-item" id="nav-developers" data-tab="developers" role="button" tabindex="0">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 5 2 8l3 3M11 5l3 3-3 3M9.5 3.5l-3 9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Developers
       </div>
@@ -41,29 +54,58 @@
 
     <div class="nav-group">
       <div class="nav-label">Configure</div>
-      <div class="nav-item">
+      <div class="nav-item" id="nav-settings" data-tab="settings" role="button" tabindex="0">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.8v1.6M8 12.6v1.6M14.2 8h-1.6M3.4 8H1.8M12.2 3.8l-1.1 1.1M4.9 11.1l-1.1 1.1M12.2 12.2l-1.1-1.1M4.9 4.9 3.8 3.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
         Settings
       </div>
     </div>
 
-    <div class="sidebar-footer">
-      <div class="avatar">NA</div>
-      <div>
-        <div class="inline-strong">Nomad Retail Ltd</div>
-        <div>Live mode</div>
+    <div class="sidebar-footer-wrap">
+      <div class="sidebar-footer" style="padding-top:0;border-top:none;">
+        <div class="avatar" id="sidebar-avatar">NA</div>
+        <div>
+          <div class="inline-strong" id="sidebar-merchant-name">Nomad Retail Ltd</div>
+          <div style="font-size:11.5px;color:#A6A99E;" id="sidebar-mode-label">Test mode</div>
+        </div>
       </div>
+      <button class="btn-signout" id="btn-signout" type="button" aria-label="Sign out of merchant account">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M6 2H3.5A1.5 1.5 0 0 0 2 3.5v9A1.5 1.5 0 0 0 3.5 14H6M10.5 11.5 14 8l-3.5-3.5M14 8H6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Sign out</span>
+      </button>
     </div>
   </aside>
 
   <main class="main">
+    <!-- Topbar -->
     <div class="topbar">
       <div>
-        <h1>Overview</h1>
-        <div class="sub">Tuesday, 8 September 2026</div>
+        <h1 id="page-title">Overview</h1>
+        <div class="sub" id="page-subtitle">Tuesday, 8 September 2026</div>
       </div>
       <div class="topbar-actions">
-        <div class="range-select">
+        <!-- Reusable Merchant Mode Switcher -->
+        <div class="mode-switcher-container" id="mode-switcher-container">
+          <button class="mode-toggle-btn test" id="mode-toggle-btn" type="button" aria-haspopup="true" aria-expanded="false" title="Click to toggle operational mode">
+            <span class="mode-dot"></span>
+            <span id="current-mode-label">Test Mode</span>
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5 5 6.5 8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="mode-dropdown-menu" id="mode-dropdown-menu" role="menu">
+            <div class="mode-menu-item active" id="menu-item-test" data-mode="TEST" role="menuitem">
+              <strong>Test Mode</strong>
+              <span>Safe sandbox for simulation &amp; integration</span>
+            </div>
+            <div class="mode-menu-item locked" id="menu-item-live" data-mode="LIVE" role="menuitem">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <strong>Live Mode</strong>
+                <span class="lock-tag" id="live-lock-badge">🔒 Locked</span>
+              </div>
+              <span id="live-lock-subtitle">Business verification required</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="range-select" id="date-range-trigger">
           Last 30 days
           <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 3.5 5 6.5 8 3.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
@@ -71,74 +113,18 @@
       </div>
     </div>
 
-    <div class="kpi-row">
-      <div class="kpi">
-        <div class="kpi-label">Total volume</div>
-        <div class="kpi-value num" id="total-volume">&#8358;0</div>
-        <div class="kpi-delta up">From successful transactions</div>
+    <!-- Contextual Environment Notice Banner -->
+    <div class="env-notice-banner test" id="env-notice-banner">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="status-dot"></span>
+        <span id="env-notice-text"><strong>TEST MODE</strong> &mdash; Simulated payment environment. Transactions will not charge real payment cards or settle real funds.</span>
       </div>
-      <div class="kpi">
-        <div class="kpi-label">Successful transactions</div>
-        <div class="kpi-value num" id="successful-count">0</div>
-        <div class="kpi-delta up">Successful</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Failed transactions</div>
-        <div class="kpi-value num" id="failed-count">0</div>
-        <div class="kpi-delta down">Failed</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-label">Available balance</div>
-        <div class="kpi-value num" id="available-balance">&#8358;0</div>
-        <div class="kpi-delta">Available in wallet</div>
-      </div>
+      <button class="btn-secondary-sm" id="env-banner-action-btn" type="button" style="padding:4px 10px;font-size:11px;cursor:pointer;">
+        Verify Business
+      </button>
     </div>
 
-    <div class="grid-2">
-      <div class="panel">
-        <div class="panel-head">
-          <h2>Revenue</h2>
-          <span class="link">View breakdown</span>
-        </div>
-        <div class="chart-wrap">
-          <div class="chart-figures">
-            <div class="chart-figure">
-              <div class="fig-label">This period</div>
-              <div class="fig-value num">&#8358;48.2M</div>
-            </div>
-            <div class="chart-figure">
-              <div class="fig-label">Previous period</div>
-              <div class="fig-value num inline-muted">&#8358;42.9M</div>
-            </div>
-          </div>
-          <svg class="chart-svg" viewBox="0 0 560 160" preserveAspectRatio="none">
-            <line x1="0" y1="40" x2="560" y2="40" stroke="#E4E2DC" stroke-width="1"/>
-            <line x1="0" y1="80" x2="560" y2="80" stroke="#E4E2DC" stroke-width="1"/>
-            <line x1="0" y1="120" x2="560" y2="120" stroke="#E4E2DC" stroke-width="1"/>
-            <path d="M0,110 C40,105 60,90 100,88 C140,86 160,60 200,58 C240,56 260,95 300,92 C340,89 360,50 400,44 C440,38 460,66 500,60 C520,57 540,30 560,22" fill="none" stroke="#2B6E4E" stroke-width="2"/>
-            <path d="M0,110 C40,105 60,90 100,88 C140,86 160,60 200,58 C240,56 260,95 300,92 C340,89 360,50 400,44 C440,38 460,66 500,60 C520,57 540,30 560,22 L560,160 L0,160 Z" fill="#2B6E4E" opacity="0.06"/>
-            <circle cx="560" cy="22" r="3.5" fill="#2B6E4E"/>
-          </svg>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-head">
-          <h2>Payouts</h2>
-          <span class="link">Manage</span>
-        </div>
-        <div class="payout-next">
-          <div class="payout-amount num">&#8358;6,114,050</div>
-          <div class="payout-date">Scheduled for 10 Sep, GTBank ****4471</div>
-        </div>
-        <div class="payout-list">
-          <div class="payout-row"><span class="pdate">3 Sep</span><span class="num">&#8358;5,220,000</span><span class="status-pill paid">Paid</span></div>
-          <div class="payout-row"><span class="pdate">27 Aug</span><span class="num">&#8358;4,890,500</span><span class="status-pill paid">Paid</span></div>
-          <div class="payout-row"><span class="pdate">20 Aug</span><span class="num">&#8358;5,760,200</span><span class="status-pill paid">Paid</span></div>
-        </div>
-      </div>
-    </div>
-
+    <!-- Quick Payment Form (accessible from Overview & Transactions) -->
     <form class="payment-form" id="payment-form">
       <div><label for="payment-amount">Amount</label><input id="payment-amount" type="number" min="0.01" step="0.01" required placeholder="25000"></div>
       <div><label for="payment-currency">Currency</label><input id="payment-currency" value="NGN" maxlength="3" required></div>
@@ -148,25 +134,850 @@
       <div class="form-message" id="form-message"></div>
     </form>
 
-    <div class="panel">
-      <div class="table-toolbar">
-        <input class="search-input" id="transaction-search" type="text" placeholder="Search by customer, reference">
-        <div class="filter-actions">
-          <span class="filter-chip">Status: All</span>
-          <span class="filter-chip">Method: All</span>
+    <!-- ==================== TAB 1: OVERVIEW ==================== -->
+    <section class="tab-content active" id="tab-overview" aria-label="Overview Section">
+      <!-- Dashboard Verification Callout Banner -->
+      <div class="verification-callout" id="dashboard-verification-callout">
+        <div class="callout-content">
+          <h4 id="callout-title">Complete Business Verification to Unlock Live Mode</h4>
+          <p id="callout-desc">Your account is operating in Test Mode. Submit your business registration and identity documents to start accepting real customer payments.</p>
+        </div>
+        <button class="btn-primary" id="goto-verification-btn" type="button" style="font-size:12.5px;padding:8px 14px;">
+          Complete Verification &rarr;
+        </button>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-label">Total volume</div>
+          <div class="kpi-value num" id="total-volume">&#8358;0</div>
+          <div class="kpi-delta up" id="volume-kpi-sub">From successful test transactions</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Successful transactions</div>
+          <div class="kpi-value num" id="successful-count">0</div>
+          <div class="kpi-delta up">Successful</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Failed transactions</div>
+          <div class="kpi-value num" id="failed-count">0</div>
+          <div class="kpi-delta down">Failed</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Available balance</div>
+          <div class="kpi-value num" id="available-balance">&#8358;0</div>
+          <div class="kpi-delta" id="balance-kpi-sub">Available in test wallet</div>
         </div>
       </div>
-      <table>
-        <thead><tr><th>Customer</th><th>Reference</th><th>Method</th><th>Date</th><th>Status</th><th class="amount-heading">Amount</th></tr></thead>
-        <tbody id="transaction-rows"><tr><td colspan="6">Loading transactions...</td></tr></tbody>
-      </table>
-      <div class="table-footer">
-        <span id="transaction-count">Loading transactions...</span>
-        <div><button class="page-btn">&lsaquo;</button><button class="page-btn">&rsaquo;</button></div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Revenue</h2>
+            <span class="link" id="view-breakdown-btn" style="cursor:pointer;">View breakdown</span>
+          </div>
+          <div class="chart-wrap">
+            <div class="chart-figures">
+              <div class="chart-figure">
+                <div class="fig-label">This period</div>
+                <div class="fig-value num" id="chart-this-period">&#8358;48.2M</div>
+              </div>
+              <div class="chart-figure">
+                <div class="fig-label">Previous period</div>
+                <div class="fig-value num inline-muted" id="chart-prev-period">&#8358;42.9M</div>
+              </div>
+            </div>
+            <svg class="chart-svg" viewBox="0 0 560 160" preserveAspectRatio="none">
+              <line x1="0" y1="40" x2="560" y2="40" stroke="#E4E2DC" stroke-width="1"/>
+              <line x1="0" y1="80" x2="560" y2="80" stroke="#E4E2DC" stroke-width="1"/>
+              <line x1="0" y1="120" x2="560" y2="120" stroke="#E4E2DC" stroke-width="1"/>
+              <path d="M0,110 C40,105 60,90 100,88 C140,86 160,60 200,58 C240,56 260,95 300,92 C340,89 360,50 400,44 C440,38 460,66 500,60 C520,57 540,30 560,22" fill="none" stroke="#2B6E4E" stroke-width="2"/>
+              <path d="M0,110 C40,105 60,90 100,88 C140,86 160,60 200,58 C240,56 260,95 300,92 C340,89 360,50 400,44 C440,38 460,66 500,60 C520,57 540,30 560,22 L560,160 L0,160 Z" fill="#2B6E4E" opacity="0.06"/>
+              <circle cx="560" cy="22" r="3.5" fill="#2B6E4E"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Payouts</h2>
+            <span class="link" id="goto-payouts-link" style="cursor:pointer;">Manage</span>
+          </div>
+          <div class="payout-next">
+            <div class="payout-amount num" id="overview-payout-amount">&#8358;6,114,050</div>
+            <div class="payout-date" id="overview-payout-date">Scheduled for 10 Sep, GTBank ****4471</div>
+          </div>
+          <div class="payout-list">
+            <div class="payout-row"><span class="pdate">3 Sep</span><span class="num">&#8358;5,220,000</span><span class="status-pill paid">Paid</span></div>
+            <div class="payout-row"><span class="pdate">27 Aug</span><span class="num">&#8358;4,890,500</span><span class="status-pill paid">Paid</span></div>
+            <div class="payout-row"><span class="pdate">20 Aug</span><span class="num">&#8358;5,760,200</span><span class="status-pill paid">Paid</span></div>
+          </div>
+        </div>
       </div>
-    </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Recent Activity</h2>
+          <span class="link" id="goto-transactions-link" style="cursor:pointer;">View all transactions</span>
+        </div>
+        <div class="table-toolbar">
+          <input class="search-input" id="transaction-search" type="text" placeholder="Search by customer, reference">
+          <div class="filter-actions">
+            <span class="filter-chip">Status: All</span>
+            <span class="filter-chip">Method: All</span>
+          </div>
+        </div>
+        <table>
+          <thead><tr><th>Customer</th><th>Reference</th><th>Method</th><th>Date</th><th>Status</th><th class="amount-heading">Amount</th></tr></thead>
+          <tbody id="transaction-rows"><tr><td colspan="6">Loading transactions...</td></tr></tbody>
+        </table>
+        <div class="table-footer">
+          <span id="transaction-count">Loading transactions...</span>
+          <div><button class="page-btn" type="button">&lsaquo;</button><button class="page-btn" type="button">&rsaquo;</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: TRANSACTIONS ==================== -->
+    <section class="tab-content" id="tab-transactions" aria-label="Transactions Section">
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Transaction Records</h2>
+            <div style="font-size:12.5px;color:var(--text-muted);margin-top:2px;" id="tx-view-mode-indicator">
+              Viewing simulated test transactions. Real money is not processed in Test Mode.
+            </div>
+          </div>
+          <button class="btn-secondary-sm" id="export-transactions-btn" type="button">Export CSV</button>
+        </div>
+
+        <div class="table-toolbar">
+          <input class="search-input" id="full-transaction-search" type="text" placeholder="Search by customer name, email, or reference" style="width:300px;">
+          <div class="filter-actions" id="tx-filter-chips">
+            <button class="filter-chip active-chip" data-status="ALL" type="button" style="cursor:pointer;background:var(--card);">All</button>
+            <button class="filter-chip" data-status="SUCCESS" type="button" style="cursor:pointer;">Successful</button>
+            <button class="filter-chip" data-status="PENDING" type="button" style="cursor:pointer;">Pending</button>
+            <button class="filter-chip" data-status="FAILED" type="button" style="cursor:pointer;">Failed</button>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Transaction Reference</th>
+              <th>Payment Method</th>
+              <th>Date &amp; Time</th>
+              <th>Status</th>
+              <th class="amount-heading">Amount</th>
+            </tr>
+          </thead>
+          <tbody id="full-transaction-rows">
+            <tr><td colspan="6" style="text-align:center;padding:32px;">Loading transactions...</td></tr>
+          </tbody>
+        </table>
+
+        <div class="table-footer">
+          <span id="full-transaction-count">Showing transactions</span>
+          <div>
+            <button class="page-btn" type="button">&lsaquo;</button>
+            <button class="page-btn" type="button">&rsaquo;</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: PAYOUTS ==================== -->
+    <section class="tab-content" id="tab-payouts" aria-label="Payouts Section">
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-label">Next Scheduled Payout</div>
+          <div class="kpi-value num">&#8358;6,114,050</div>
+          <div class="kpi-delta up">Expected tomorrow at 00:00 UTC</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Total Settled (This Month)</div>
+          <div class="kpi-value num">&#8358;15,870,700</div>
+          <div class="kpi-delta up">3 payouts completed</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Pending Settlement Balance</div>
+          <div class="kpi-value num">&#8358;840,200</div>
+          <div class="kpi-delta">In clearing window (T+1)</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Settlement Destination</div>
+          <div class="kpi-value" style="font-size:16px;font-weight:600;padding-top:6px;">GTBank &bull;&bull;&bull;&bull; 4471</div>
+          <div class="kpi-delta up">Verified Account</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Settlement History</h2>
+            <span class="link" id="download-settlements-btn" style="cursor:pointer;">Download PDF</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Payout Ref</th>
+                <th>Settlement Date</th>
+                <th>Destination</th>
+                <th>Status</th>
+                <th class="amount-heading">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="clickable-row">
+                <td class="num">PO-2026-9842</td>
+                <td>3 Sep 2026</td>
+                <td>GTBank &bull;&bull;&bull;&bull; 4471</td>
+                <td><span class="status-pill paid">Paid</span></td>
+                <td class="amount-cell num">&#8358;5,220,000</td>
+              </tr>
+              <tr class="clickable-row">
+                <td class="num">PO-2026-9811</td>
+                <td>27 Aug 2026</td>
+                <td>GTBank &bull;&bull;&bull;&bull; 4471</td>
+                <td><span class="status-pill paid">Paid</span></td>
+                <td class="amount-cell num">&#8358;4,890,500</td>
+              </tr>
+              <tr class="clickable-row">
+                <td class="num">PO-2026-9784</td>
+                <td>20 Aug 2026</td>
+                <td>GTBank &bull;&bull;&bull;&bull; 4471</td>
+                <td><span class="status-pill paid">Paid</span></td>
+                <td class="amount-cell num">&#8358;5,760,200</td>
+              </tr>
+              <tr class="clickable-row">
+                <td class="num">PO-2026-9740</td>
+                <td>13 Aug 2026</td>
+                <td>GTBank &bull;&bull;&bull;&bull; 4471</td>
+                <td><span class="status-pill paid">Paid</span></td>
+                <td class="amount-cell num">&#8358;4,120,000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Settlement Bank Account</h2>
+          </div>
+          <div style="padding:20px;font-size:13px;" class="space-y-3">
+            <div class="detail-row">
+              <span class="detail-label">Bank Name</span>
+              <span class="detail-value">Guaranty Trust Bank (GTBank)</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Account Number</span>
+              <span class="detail-value num">0148294471</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Account Name</span>
+              <span class="detail-value">Nomad Retail Limited</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Settlement Cycle</span>
+              <span class="detail-value">Daily (T+1 Business Day)</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Account Status</span>
+              <span class="detail-value" style="color:var(--accent);">&#10003; Verified &amp; Active</span>
+            </div>
+            <div style="margin-top:16px;">
+              <button class="btn-secondary-sm" id="edit-bank-account-btn" type="button" style="width:100%;">
+                Request Bank Account Change
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: CUSTOMERS ==================== -->
+    <section class="tab-content" id="tab-customers" aria-label="Customers Section">
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-label">Total Customers</div>
+          <div class="kpi-value num" id="customer-total-count">0</div>
+          <div class="kpi-delta up">Purchasers on record</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Active This Month</div>
+          <div class="kpi-value num" id="customer-active-count">0</div>
+          <div class="kpi-delta up">Current billing cycle</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Average Order Value</div>
+          <div class="kpi-value num" id="customer-aov">&#8358;0</div>
+          <div class="kpi-delta">Across all transactions</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Customer Satisfaction</div>
+          <div class="kpi-value num">99.2%</div>
+          <div class="kpi-delta up">Low dispute rate</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Customer Directory</h2>
+            <div style="font-size:12.5px;color:var(--text-muted);margin-top:2px;">
+              View customer purchasing history, contact information, and order volume.
+            </div>
+          </div>
+        </div>
+
+        <div class="table-toolbar">
+          <input class="search-input" id="customer-search-input" type="text" placeholder="Search customers by name or email" style="width:280px;">
+          <div class="filter-actions">
+            <span class="filter-chip">Status: Active</span>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Customer Name</th>
+              <th>Email Address</th>
+              <th>Total Transactions</th>
+              <th>Total Spent</th>
+              <th>Last Activity</th>
+              <th style="text-align:right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="customer-rows">
+            <tr><td colspan="6" style="text-align:center;padding:32px;">Loading customers...</td></tr>
+          </tbody>
+        </table>
+
+        <div class="table-footer">
+          <span id="customer-table-count">Showing customers</span>
+          <div>
+            <button class="page-btn" type="button">&lsaquo;</button>
+            <button class="page-btn" type="button">&rsaquo;</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: DEVELOPERS ==================== -->
+    <section class="tab-content" id="tab-developers" aria-label="Developers Section">
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>API Credentials</h2>
+            <span class="status" id="dev-env-badge" style="font-size:11.5px;background:var(--amber-soft);color:var(--amber);">
+              <span class="status-dot"></span>Test Environment
+            </span>
+          </div>
+          <div style="padding:20px;font-size:13px;" class="space-y-4">
+            <p style="color:var(--text-muted);font-size:12.5px;margin:0 0 16px;line-height:1.5;">
+              Use these API keys to authenticate requests from your backend server or e-commerce platform.
+            </p>
+
+            <div class="form-group-mb">
+              <label>Publishable Key (Client / Frontend)</label>
+              <div class="key-box">
+                <span class="num" id="pub-key-display">pk_test_8942019482019482</span>
+                <button class="btn-secondary-sm" id="copy-pubkey-btn" type="button">Copy</button>
+              </div>
+            </div>
+
+            <div class="form-group-mb">
+              <label>Secret Key (Backend Server Only)</label>
+              <div class="key-box">
+                <span class="num" id="secret-key-display">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span>
+                <div style="display:flex;gap:6px;">
+                  <button class="btn-secondary-sm" id="reveal-secret-btn" type="button">Reveal</button>
+                  <button class="btn-secondary-sm" id="copy-secret-btn" type="button">Copy</button>
+                </div>
+              </div>
+              <p style="font-size:11px;color:var(--danger);margin:6px 0 0;">
+                &#9888; Never share or expose your Secret Key in client-side code, mobile apps, or public repositories.
+              </p>
+            </div>
+
+            <div class="form-group-mb">
+              <label>Gateway Base Endpoint</label>
+              <div class="key-box">
+                <span class="num" id="api-base-display">http://localhost:44365</span>
+                <button class="btn-secondary-sm" id="copy-endpoint-btn" type="button">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Webhook Configuration</h2>
+          </div>
+          <form style="padding:20px;font-size:13px;" id="webhook-form">
+            <p style="color:var(--text-muted);font-size:12.5px;margin:0 0 16px;line-height:1.5;">
+              Receive instant HTTP POST notifications when payment events happen on your account.
+            </p>
+
+            <div class="form-group-mb">
+              <label for="webhook-url">Webhook Endpoint URL</label>
+              <input type="url" id="webhook-url" placeholder="https://api.nomadretail.com/webhooks/payment" value="https://api.nomadretail.com/webhooks/payment" required>
+            </div>
+
+            <div class="form-group-mb">
+              <label>Webhook Signing Secret</label>
+              <div class="key-box">
+                <span class="num">whsec_test_79a29d48201948</span>
+                <button class="btn-secondary-sm" id="copy-whsec-btn" type="button">Copy</button>
+              </div>
+            </div>
+
+            <div class="form-group-mb">
+              <label>Subscribed Events</label>
+              <label class="checkbox-option">
+                <input type="checkbox" checked>
+                <span>payment.successful &mdash; Triggered when payment settles</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" checked>
+                <span>payment.failed &mdash; Triggered when a payment attempt is declined</span>
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" checked>
+                <span>payout.completed &mdash; Triggered when bank payout completes</span>
+              </label>
+            </div>
+
+            <div style="display:flex;gap:8px;margin-top:20px;">
+              <button class="btn-primary" type="submit" id="save-webhook-btn">Save Webhook</button>
+              <button class="btn-secondary-sm" id="test-webhook-btn" type="button">Send Test Ping</button>
+            </div>
+            <div id="webhook-message" style="font-size:12px;color:var(--accent);margin-top:10px;min-height:16px;"></div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Quick Integration Snippets -->
+      <div class="panel" style="margin-top:24px;">
+        <div class="panel-head">
+          <h2>Integration Quickstart Snippet</h2>
+          <span style="font-size:12px;color:var(--text-muted);">POST /Payments/Create</span>
+        </div>
+        <div style="padding:20px;">
+          <div class="code-tabs" id="code-snippet-tabs">
+            <button class="code-tab-btn active" data-lang="curl" type="button">cURL</button>
+            <button class="code-tab-btn" data-lang="javascript" type="button">Node.js / Fetch</button>
+            <button class="code-tab-btn" data-lang="csharp" type="button">C# / .NET</button>
+            <button class="code-tab-btn" data-lang="python" type="button">Python</button>
+          </div>
+          <pre class="code-block" id="code-snippet-pre"><code>curl -X POST http://localhost:44365/Payments/Create \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk_test_8942019482019482" \
+  -d '{
+    "merchantId": 1,
+    "amount": 10000.00,
+    "currency": "NGN",
+    "idempotencyKey": "order_894210",
+    "narration": "Order #8942 - Office Supplies"
+  }'</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 6: SETTINGS ==================== -->
+    <section class="tab-content" id="tab-settings" aria-label="Settings Section">
+      <div class="settings-grid">
+        <div class="settings-nav">
+          <button class="settings-nav-btn active" data-section="business" type="button">Business Profile</button>
+          <button class="settings-nav-btn" data-section="payments" type="button">Payment Methods</button>
+          <button class="settings-nav-btn" data-section="verification" id="settings-nav-verification" type="button">Verification &amp; KYC</button>
+          <button class="settings-nav-btn" data-section="notifications" type="button">Notifications</button>
+          <button class="settings-nav-btn" data-section="security" type="button">Security &amp; Password</button>
+        </div>
+
+        <div>
+          <!-- Section 1: Business Profile -->
+          <div class="settings-panel settings-section active" id="sec-business">
+            <h2 class="settings-section-title">Business Information</h2>
+            <p class="settings-section-desc">Manage your business profile, official email, and customer support details.</p>
+            <form id="profile-form">
+              <div class="form-row">
+                <div class="form-group-mb">
+                  <label for="biz-name">Business Legal Name</label>
+                  <input type="text" id="biz-name" value="Nomad Retail Ltd" required>
+                </div>
+                <div class="form-group-mb">
+                  <label for="biz-email">Official Merchant Email</label>
+                  <input type="email" id="biz-email" value="contact@nomadretail.com" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group-mb">
+                  <label for="biz-phone">Customer Support Phone</label>
+                  <input type="tel" id="biz-phone" value="+234 801 234 5678" required>
+                </div>
+                <div class="form-group-mb">
+                  <label for="biz-category">Business Category</label>
+                  <select id="biz-category">
+                    <option value="RETAIL" selected>Retail &amp; E-Commerce</option>
+                    <option value="SERVICES">Professional Services</option>
+                    <option value="TECHNOLOGY">Software &amp; Digital Products</option>
+                    <option value="HOSPITALITY">Hospitality &amp; Travel</option>
+                    <option value="REAL_ESTATE">Real Estate &amp; Construction (SCUML-relevant)</option>
+                    <option value="JEWELRY_LUXURY">Jewelry, Metals &amp; Luxury Goods (SCUML-relevant)</option>
+                    <option value="AUTOMOTIVE">Automotive Dealership (SCUML-relevant)</option>
+                    <option value="LEGAL_ACCOUNTING">Legal &amp; Accounting Services (SCUML-relevant)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group-mb">
+                <label for="biz-address">Registered Office Address</label>
+                <input type="text" id="biz-address" value="Plot 12, Commercial Avenue, Victoria Island, Lagos, Nigeria">
+              </div>
+              <div class="form-group-mb">
+                <label for="biz-desc">Business Description</label>
+                <textarea id="biz-desc" rows="3">Electronics, lifestyle goods, and office furniture provider for African businesses.</textarea>
+              </div>
+              <div style="display:flex;gap:10px;align-items:center;">
+                <button class="btn-primary" type="submit" id="save-profile-btn">Save Changes</button>
+                <button class="btn-secondary-sm" type="reset">Cancel</button>
+                <span id="profile-feedback" style="font-size:12.5px;color:var(--accent);margin-left:8px;"></span>
+              </div>
+            </form>
+          </div>
+
+          <!-- Section 2: Payment Methods -->
+          <div class="settings-panel settings-section" id="sec-payments" style="display:none;">
+            <h2 class="settings-section-title">Payment Collection Preferences</h2>
+            <p class="settings-section-desc">Configure which channels and payment rails are available to customers at checkout.</p>
+            <form id="preferences-form">
+              <div class="form-group-mb">
+                <label>Accepted Payment Channels</label>
+                <label class="checkbox-option">
+                  <input type="checkbox" checked>
+                  <span><strong>Debit &amp; Credit Cards</strong> &mdash; Mastercard, Visa, Verve</span>
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" checked>
+                  <span><strong>Bank Transfer</strong> &mdash; Dedicated Virtual NUBAN Account</span>
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" checked>
+                  <span><strong>USSD Banking</strong> &mdash; Quick dial codes (*737*, *966*, etc.)</span>
+                </label>
+              </div>
+              <div class="form-row">
+                <div class="form-group-mb">
+                  <label for="default-currency">Default Currency</label>
+                  <select id="default-currency">
+                    <option value="NGN" selected>NGN &mdash; Nigerian Naira</option>
+                    <option value="USD">USD &mdash; US Dollar (Cross-border)</option>
+                  </select>
+                </div>
+                <div class="form-group-mb">
+                  <label for="payout-schedule">Settlement Frequency</label>
+                  <select id="payout-schedule">
+                    <option value="daily" selected>Daily (T+1 Business Day)</option>
+                    <option value="weekly">Weekly (Every Monday)</option>
+                  </select>
+                </div>
+              </div>
+              <div style="margin-top:16px;">
+                <button class="btn-primary" type="submit">Save Preferences</button>
+                <span id="prefs-feedback" style="font-size:12.5px;color:var(--accent);margin-left:8px;"></span>
+              </div>
+            </form>
+          </div>
+
+          <!-- Section 3: Verification & KYC/KYB -->
+          <div class="settings-panel settings-section" id="sec-verification" style="display:none;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:12px;">
+              <div>
+                <h2 class="settings-section-title">Business &amp; Compliance Verification (KYC/KYB)</h2>
+                <p class="settings-section-desc" style="margin-bottom:0;">
+                  Complete your entity verification to satisfy regulatory standards and activate Live Mode.
+                </p>
+              </div>
+              <div id="compliance-overall-badge">
+                <span class="status pending" id="verif-status-badge">
+                  <span class="status-dot"></span>Not Started
+                </span>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div style="margin-bottom:20px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--text-muted);">
+                <span id="compliance-progress-label">Compliance Progress</span>
+                <span id="compliance-progress-percent" class="num font-semibold">0%</span>
+              </div>
+              <div class="compliance-progress-bar">
+                <div class="compliance-progress-fill" id="compliance-progress-fill" style="width:0%;"></div>
+              </div>
+            </div>
+
+            <!-- Rejection Reason Alert (Visible only in ACTION_REQUIRED state) -->
+            <div class="doc-rejection-box" id="compliance-alert-rejection" style="display:none;margin-bottom:20px;">
+              <div style="font-weight:600;margin-bottom:3px;">Action Required from Compliance Review</div>
+              <div id="compliance-rejection-text">One or more uploaded documents could not be verified. Please review the highlighted items below and upload updated copies.</div>
+            </div>
+
+            <!-- Under Review Alert (Visible when SUBMITTED / UNDER_REVIEW) -->
+            <div class="alert warning" id="compliance-alert-review" style="display:none;margin-bottom:20px;">
+              <div>
+                <strong style="display:block;margin-bottom:2px;">Documents Under Review</strong>
+                <span>Your compliance documents have been submitted to our verification officers. Live Mode will unlock automatically upon review approval.</span>
+              </div>
+            </div>
+
+            <!-- Approved Alert (Visible when APPROVED) -->
+            <div class="alert success" id="compliance-alert-approved" style="display:none;margin-bottom:20px;">
+              <div>
+                <strong style="display:block;margin-bottom:2px;">Business Verification Approved</strong>
+                <span>Your business identity and regulatory credentials are fully verified. Live Mode is unlocked.</span>
+              </div>
+            </div>
+
+            <!-- Step 1: Legal Structure Selection -->
+            <div class="form-group-mb" style="padding-bottom:16px;border-bottom:1px solid var(--line);">
+              <label style="font-size:13px;font-weight:600;margin-bottom:8px;">1. Select Your Legal Business Structure</label>
+              <div class="business-type-card-grid" id="business-type-grid">
+                <div class="type-radio-card selected" data-type="LIMITED_LIABILITY_COMPANY">
+                  <strong>Limited Liability Company</strong>
+                  <span>RC number, Certificate of Incorporation, CAC Status Report &amp; MEMART.</span>
+                </div>
+                <div class="type-radio-card" data-type="REGISTERED_BUSINESS_NAME">
+                  <strong>Registered Business Name</strong>
+                  <span>BN registration certificate, proprietor ID &amp; proof of address.</span>
+                </div>
+                <div class="type-radio-card" data-type="SOLE_PROPRIETOR">
+                  <strong>Sole Proprietor / Individual</strong>
+                  <span>Government photo ID, personal TIN &amp; residential utility proof.</span>
+                </div>
+                <div class="type-radio-card" data-type="INCORPORATED_TRUSTEE">
+                  <strong>Incorporated Trustee / NGO</strong>
+                  <span>CAC IT certificate, constitution &amp; official trustee profiles.</span>
+                </div>
+              </div>
+
+              <!-- Industry Sector for SCUML Assessment -->
+              <div class="form-row" style="margin-top:12px;">
+                <div class="form-group-mb" style="margin-bottom:0;">
+                  <label for="compliance-sector-select">Business Industry Sector (Determines SCUML/Regulatory Scope)</label>
+                  <select id="compliance-sector-select">
+                    <option value="RETAIL" selected>Retail, E-Commerce &amp; Consumer Goods (Standard)</option>
+                    <option value="SERVICES">Professional &amp; Business Consulting</option>
+                    <option value="TECHNOLOGY">Software, SaaS &amp; Digital Services</option>
+                    <option value="HOSPITALITY">Hospitality, Food &amp; Tourism</option>
+                    <option value="REAL_ESTATE">Real Estate &amp; Construction (SCUML Mandatory)</option>
+                    <option value="JEWELRY_LUXURY">Jewelry, Precious Metals &amp; Luxury Dealership (SCUML Mandatory)</option>
+                    <option value="AUTOMOTIVE">Automotive Sales &amp; Dealership (SCUML Mandatory)</option>
+                    <option value="LEGAL_ACCOUNTING">Audit, Legal &amp; Accounting Practice (SCUML Mandatory)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Dynamic Document Checklist & Uploads -->
+            <div style="margin-top:20px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                <label style="font-size:13px;font-weight:600;margin:0;">2. Required Verification Documents</label>
+                <span style="font-size:11.5px;color:var(--text-muted);" id="req-count-badge">Loading requirements...</span>
+              </div>
+
+              <div id="compliance-doc-list">
+                <!-- Dynamically injected document requirement cards -->
+              </div>
+            </div>
+
+            <!-- Step 3: Submission & Review Action -->
+            <div style="margin-top:24px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+              <div style="font-size:12px;color:var(--text-muted);max-width:400px;">
+                By submitting, you confirm that uploaded documents are authentic and represent your registered business entity.
+              </div>
+              <button class="btn-primary" id="submit-verification-btn" type="button" style="padding:10px 20px;">
+                Submit for Verification
+              </button>
+            </div>
+
+            <!-- Developer / Pairing Demo State Controls -->
+            <div style="margin-top:32px;padding:14px 18px;background:var(--paper);border:1px dashed var(--line-strong);border-radius:var(--radius);">
+              <div style="font-size:11.5px;font-weight:600;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.02em;">
+                Testing &amp; Compliance Simulation Toolbar (Development Preview)
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="btn-secondary-sm" id="demo-simulate-submit" type="button">1. Simulate Submit (Under Review)</button>
+                <button class="btn-secondary-sm" id="demo-simulate-reject" type="button">2. Simulate Action Required (Rejection)</button>
+                <button class="btn-secondary-sm" id="demo-simulate-approve" type="button" style="color:var(--accent);border-color:var(--accent);">3. Simulate Approval (Unlocks Live)</button>
+                <button class="btn-secondary-sm" id="demo-simulate-reset" type="button">Reset</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Notifications -->
+          <div class="settings-panel settings-section" id="sec-notifications" style="display:none;">
+            <h2 class="settings-section-title">Notification Preferences</h2>
+            <p class="settings-section-desc">Choose when and how your team receives alerts about payment activities.</p>
+            <form id="notif-form">
+              <div class="form-group-mb">
+                <label>Email Alerts</label>
+                <label class="checkbox-option">
+                  <input type="checkbox" checked>
+                  <span>Email receipt for every successful transaction</span>
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" checked>
+                  <span>Alert on failed or declined high-value payments</span>
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" checked>
+                  <span>Daily settlement summary report</span>
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox">
+                  <span>Monthly reconciliation ledger digest</span>
+                </label>
+              </div>
+              <div style="margin-top:16px;">
+                <button class="btn-primary" type="submit">Update Notifications</button>
+                <span id="notif-feedback" style="font-size:12.5px;color:var(--accent);margin-left:8px;"></span>
+              </div>
+            </form>
+          </div>
+
+          <!-- Section 5: Security -->
+          <div class="settings-panel settings-section" id="sec-security" style="display:none;">
+            <h2 class="settings-section-title">Security &amp; Password</h2>
+            <p class="settings-section-desc">Update your merchant administrator password and review active login sessions.</p>
+            <form id="security-form" style="max-width:400px;">
+              <div class="form-group-mb">
+                <label for="current-pass">Current Password</label>
+                <input type="password" id="current-pass" required placeholder="••••••••">
+              </div>
+              <div class="form-group-mb">
+                <label for="new-pass">New Password</label>
+                <input type="password" id="new-pass" required placeholder="At least 8 characters">
+              </div>
+              <div class="form-group-mb">
+                <label for="confirm-pass">Confirm New Password</label>
+                <input type="password" id="confirm-pass" required placeholder="••••••••">
+              </div>
+              <button class="btn-primary" type="submit">Update Password</button>
+              <div id="security-feedback" style="font-size:12.5px;color:var(--accent);margin-top:10px;"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
+
+<!-- ==================== MODALS ==================== -->
+
+<!-- Live Mode Locked Modal -->
+<div class="modal-overlay" id="live-locked-modal" aria-hidden="true" role="dialog">
+  <div class="modal-card" style="max-width:440px;">
+    <div class="modal-head">
+      <h3>Live Mode Locked</h3>
+      <button class="modal-close" id="live-locked-close" type="button" aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:24px 20px;text-align:center;">
+      <div style="width:48px;height:48px;border-radius:50%;background:var(--amber-soft);color:var(--amber);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px;">
+        🔒
+      </div>
+      <h4 style="font-size:16px;font-weight:600;margin:0 0 8px;color:var(--text);">Business Verification Required</h4>
+      <p style="font-size:13px;color:var(--text-muted);margin:0 0 16px;line-height:1.5;">
+        Live Mode processes real customer transactions and disburses funds to your registered bank account. Complete your business compliance verification to activate Live Mode.
+      </p>
+      <div style="background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--text-muted);margin-bottom:20px;text-align:left;">
+        <strong>Verification Checklist:</strong>
+        <ul style="margin:6px 0 0;padding-left:18px;line-height:1.6;">
+          <li>Government-issued Identity Document</li>
+          <li>CAC Corporate Registration Evidence</li>
+          <li>Proof of Business Address</li>
+        </ul>
+      </div>
+      <button class="btn-primary" id="live-locked-proceed-btn" type="button" style="width:100%;padding:11px;">
+        Complete Business Verification
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mode Switch Confirmation Modal -->
+<div class="modal-overlay" id="mode-confirm-modal" aria-hidden="true" role="dialog">
+  <div class="modal-card" style="max-width:440px;">
+    <div class="modal-head">
+      <h3 id="mode-confirm-title">Switch Mode</h3>
+      <button class="modal-close" id="mode-confirm-close" type="button" aria-label="Cancel">&times;</button>
+    </div>
+    <div class="modal-body" style="padding:20px;">
+      <p id="mode-confirm-message" style="font-size:13.5px;color:var(--text);margin:0 0 12px;line-height:1.5;"></p>
+      <div id="mode-confirm-warning" style="background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:10px 14px;font-size:12px;color:var(--text-muted);line-height:1.4;"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-sm" id="mode-confirm-cancel" type="button">Cancel</button>
+      <button class="btn-primary" id="mode-confirm-proceed" type="button">Confirm Switch</button>
+    </div>
+  </div>
+</div>
+
+<!-- Transaction Detail Modal -->
+<div class="modal-overlay" id="tx-modal" aria-hidden="true" role="dialog">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Transaction Details</h3>
+      <button class="modal-close" id="tx-modal-close" type="button" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="modal-body" id="tx-modal-body">
+      <!-- Dynamic details rendered here -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-sm" id="tx-print-btn" type="button">Print Receipt</button>
+      <button class="btn-primary" id="tx-modal-done" type="button">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- Customer Detail Modal -->
+<div class="modal-overlay" id="cust-modal" aria-hidden="true" role="dialog">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3>Customer Profile</h3>
+      <button class="modal-close" id="cust-modal-close" type="button" aria-label="Close dialog">&times;</button>
+    </div>
+    <div class="modal-body" id="cust-modal-body">
+      <!-- Dynamic customer details rendered here -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn-primary" id="cust-modal-done" type="button">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sign Out Confirmation Modal -->
+<div class="modal-overlay" id="signout-modal" aria-hidden="true" role="dialog">
+  <div class="modal-card" style="max-width:420px;">
+    <div class="modal-head">
+      <h3>Sign Out</h3>
+      <button class="modal-close" id="signout-modal-close" type="button" aria-label="Cancel">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13.5px;color:var(--text);margin:0 0 8px;line-height:1.5;">
+        Are you sure you want to sign out of your merchant account?
+      </p>
+      <p style="font-size:12px;color:var(--text-muted);margin:0;">
+        Your authenticated session will be cleared. You will need your email and password to log in again.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary-sm" id="signout-cancel-btn" type="button">Cancel</button>
+      <button class="btn-primary" id="signout-confirm-btn" type="button" style="background:var(--danger);">Sign out</button>
+    </div>
+  </div>
+</div>
+
 <script src="assets/js/config.js"></script>
 <script src="assets/js/merchant-dashboard.js"></script>
 </body>
