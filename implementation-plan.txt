@@ -1,0 +1,243 @@
+# MerchantPay Lite — Customer Payment Journey Frontend Implementation Plan
+
+## Goal Description
+Implement the complete Customer Payment Journey for MerchantPay Lite using Next.js (App Router), React, TypeScript, and the existing design system. The user journey follows the three core BRD phases:
+1. **Checkout Initiation**: View payment request details, merchant identity, amount, currency, and select payment method.
+2. **Payment Fulfillment**: Input authorization details for supported methods (Card, Bank Transfer, USSD) with input masking and validation without storing sensitive cardholder details.
+3. **Verification & Confirmation**: Display immediate feedback covering all supported states (`SUCCESSFUL`, `FAILED`, `PENDING`, `EXPIRED`, and `PROCESSING`) with safe retry handling.
+
+The implementation strictly preserves the existing design language (colors, `Public Sans` and `IBM Plex Mono` typography, "P" brand mark, radii, buttons, and alert patterns) from `paymentapp-main.zip` and does not break existing merchant functionality (`index.html`, `register.html`, `merchant-dashboard.html`, `email-verification.html`).
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Backend Integration Status: BACKEND API REQUIRED**
+> Inspection of the repository and `assets/js/config.js` shows that the existing ASP.NET backend only provides merchant-facing endpoints (`/Home/Login`, `/Merchants/Register`, `/Payments/Dashboard`, `/Payments/Create`). Customer-facing checkout endpoints (`GET /Payments/Checkout/{reference}`, `POST /Payments/Charge`, `GET /Payments/Status/{reference}`) **do not yet exist** in the backend.
+> 
+> As mandated by Rule 8 of the prompt:
+> - We will **NOT** invent endpoints or fake production payment processing.
+> - We will create a strongly-typed API service layer `lib/api/checkout-service.ts` that isolates this boundary and marks the missing endpoints as `BACKEND API REQUIRED`.
+> - For UI development, validation, and browser verification across all payment states, we provide an isolated fixture provider (`lib/api/dev-fixtures.ts`) active only in development/demo mode (e.g. when testing specific state scenarios like `?status=success`, `ref-success`, `ref-fail`, `ref-pending`, `ref-expired`).
+> - We will document all required API contracts in `docs/customer-checkout-api-dependencies.md`.
+
+> [!NOTE]
+> **Existing Merchant Pages Preservation**
+> The existing merchant static HTML files (`index.html`, `register.html`, `email-verification.html`, `merchant-dashboard.html`) and their associated assets (`assets/css/*`, `assets/js/*`) will remain intact. They will also be served via Next.js `public/` directory so that navigating to `/index.html`, `/register.html`, etc. continues to work identically.
+
+---
+
+## Proposed Architecture & Design System Tokens
+
+### 1. Design System Tokens (Preserved from Existing CSS)
+- **Typography**:
+  - Primary interface text: `Public Sans` (`400`, `500`, `600`, `700`)
+  - Reference codes, references, monetary values, timestamps: `IBM Plex Mono` (`400`, `500`, `600`)
+- **Color Palette**:
+  - `--paper`: `#F7F6F2` (Page background)
+  - `--card`: `#FFFFFF` (Card background)
+  - `--ink`: `#14181F` (Primary text, primary button background)
+  - `--ink-soft`: `#1E232C` (Button hover, dark accents)
+  - `--line`: `#E4E2DC` (Border, card outlines, separators)
+  - `--line-strong`: `#CFCCC3` (Input borders, focused outlines)
+  - `--text`: `#14181F`
+  - `--text-muted`: `#6B6F76`
+  - `--text-faint`: `#9A9D9E`
+  - `--accent`: `#2B6E4E` (Brand mark, primary green, success)
+  - `--accent-soft`: `#E4EDE7` (Success background, badge background)
+  - `--danger`: `#B23A2F` (Error border, error text)
+  - `--danger-soft`: `#F4E4E1` (Error background)
+  - `--amber`: `#9C6B14` (Pending status text, warning)
+  - `--amber-soft`: `#F3E9D6` (Pending background)
+  - `--radius`: `6px`
+- **Branding**:
+  - "Payment App" with the distinct "P" brand mark (accent green rounded box with white mono "P").
+
+---
+
+## Proposed Changes
+
+### Configuration & Tooling
+
+#### [NEW] [next.config.mjs](file:///home/gamp/projects/THxZV/paymentapp/next.config.mjs)
+- Next.js configuration enabling App Router, strict mode, and environment variables.
+
+#### [NEW] [tailwind.config.ts](file:///home/gamp/projects/THxZV/paymentapp/tailwind.config.ts)
+- Tailwind configuration mapping existing CSS variables (`paper`, `card`, `ink`, `line`, `accent`, `danger`, `amber`, etc.) and font families (`font-sans` -> `Public Sans`, `font-mono` -> `IBM Plex Mono`).
+
+#### [NEW] [postcss.config.js](file:///home/gamp/projects/THxZV/paymentapp/postcss.config.js)
+- Standard PostCSS config with Tailwind CSS and Autoprefixer.
+
+---
+
+### App Shell & Styling
+
+#### [NEW] [app/layout.tsx](file:///home/gamp/projects/THxZV/paymentapp/app/layout.tsx)
+- Root layout loading `Public Sans` and `IBM Plex Mono` via Google Fonts / `next/font/google`.
+- Declares global metadata and sets background to `var(--paper)`.
+
+#### [NEW] [app/globals.css](file:///home/gamp/projects/THxZV/paymentapp/app/globals.css)
+- Integrates the exact `:root` design tokens from `login.css` and `merchant-dashboard.css`.
+- Preserves all core utility classes (`.num`, `.status`, `.alert`, `.brand-mark`, `.btn-primary`, `.form-group`).
+
+#### [NEW] [app/page.tsx](file:///home/gamp/projects/THxZV/paymentapp/app/page.tsx)
+- Root route directing to merchant login or providing quick links to existing merchant pages and sample checkout demonstrations.
+
+---
+
+### Customer Checkout Route
+
+#### [NEW] [app/checkout/[paymentReference]/page.tsx](file:///home/gamp/projects/THxZV/paymentapp/app/checkout/[paymentReference]/page.tsx)
+- Server/Client page component resolving the `paymentReference` parameter.
+- Renders the `CheckoutShell` with the checkout state machine.
+
+---
+
+### Core Checkout Components (`components/checkout/`)
+
+#### [NEW] [components/checkout/CheckoutShell.tsx](file:///home/gamp/projects/THxZV/paymentapp/components/checkout/CheckoutShell.tsx)
+- Clean, focused checkout container (max-width: 480px, responsive 320px+).
+- Completely isolated from merchant dashboard sidebar.
+- Contains header, stage container, and trust/security footer.
+
+#### [NEW] [components/checkout/CheckoutHeader.tsx](file:///home/gamp/projects/THxZV/paymentapp/components/checkout/CheckoutHeader.tsx)
+- Brand mark ("P") and "Payment App" title.
+- Security badge ("Secure payment" indicator with SVG lock).
+
+#### [NEW] [components/checkout/PaymentSummary.tsx](file:///home/gamp/projects/THxZV/paymentapp/components/checkout/PaymentSummary.tsx)
+- Displays merchant name, description/narration.
+- Large, prominent currency amount formatted in Nigerian Naira (`₦10,000.00`) or payment currency.
+- Payment reference formatted in `IBM Plex Mono`.
+
+#### [NEW] [components/checkout/PaymentMethodSelector.tsx](file:///home/gamp/projects/THxZV/paymentapp/components/checkout/PaymentMethodSelector.tsx)
+- Interactive method selector supporting:
+  - Card (`card`)
+  - Bank Transfer (`bank_transfer`)
+  - USSD (`ussd`)
+- Visual card style matching existing button/form radius and active accent border.
+
+#### [NEW] [components/checkout/CardPaymentForm.tsx](file:///home/gamp/projects/THxZV/paymentapp/components/checkout/CardPaymentForm.tsx)
+- Cardholder Name, Card Number (with formatted spaces, brand icon detection), Expiry Date (MM/YY), CVV (3-4 digits).
+- Client-side validation; zero persistence of CVV/raw PAN.
+- Submit button: "Pay ₦X,XXX".
+
+#### [NEW] [components/checkout/BankTransferInstructions.tsx](file:///home/gamp/projects/THxZV/paymentapp/components/checkout/BankTransferInstructions.tsx)
+- Authoritative bank details: Bank Name, Account Number (with 1-click copy action), Account Name, Amount, Reference.
+- Instructions: "Transfer exact amount to the account above."
+- "I've sent the money" confirmation button.
+
+#### [NEW] [components/checkout/UssdPaymentInstructions.tsx](file:///home/gamp/projects/THxZV/paymentapp/components/checkout/UssdPaymentInstructions.tsx)
+- Bank selector dropdown for Nigerian banks (GTBank, Zenith, Access, First Bank, UBA, etc.).
+- Generated USSD dial string (e.g. `*737*2*Amount*Ref#`) with copy action.
+- Step-by-step guidance to dial on registered mobile phone.
+
+#### [NEW] [components/checkout/PaymentProcessing.tsx](file:///home/gamp/projects/THxZV/paymentapp/components/checkout/PaymentProcessing.tsx)
+- Minimalist CSS spinner matching existing `register.css` animation.
+- Clear message: "Processing your payment. Please wait while we confirm your transaction."
+
+#### [NEW] [components/checkout/PaymentSuccess.tsx](file:///home/gamp/projects/THxZV/paymentapp/components/checkout/PaymentSuccess.tsx)
+- Success icon and badge (`--accent-soft` and `--accent`).
+- Transaction breakdown: Amount paid, Payment reference (`IBM Plex Mono`), Transaction reference, Merchant name, Date & time.
+- Action buttons: "Return to Merchant", "Print Receipt".
+
+#### [NEW] [components/checkout/PaymentFailed.tsx](file:///home/gamp/projects/THxZV/paymentapp/components/checkout/PaymentFailed.tsx)
+- Safe, human-readable error description without exposing internal error details.
+- Primary action: "Try again" (preserves session for a new attempt).
+- Secondary action: "Choose another payment method".
+
+#### [NEW] [components/checkout/PaymentPending.tsx](file:///home/gamp/projects/THxZV/paymentapp/components/checkout/PaymentPending.tsx)
+- Amber pending badge and status indicator.
+- Explanation: "Your payment has been initiated but has not yet been confirmed."
+- "Refresh status" action.
+
+#### [NEW] [components/checkout/PaymentExpired.tsx](file:///home/gamp/projects/THxZV/paymentapp/components/checkout/PaymentExpired.tsx)
+- Notice that checkout session has expired.
+- "Return to merchant" action.
+
+---
+
+### Data Types & API Layer
+
+#### [NEW] [types/checkout.ts](file:///home/gamp/projects/THxZV/paymentapp/types/checkout.ts)
+- Types for:
+  - `PaymentStatus`: `'INITIATED' | 'PROCESSING' | 'SUCCESSFUL' | 'FAILED' | 'PENDING' | 'EXPIRED' | 'NOT_FOUND'`
+  - `PaymentMethodType`: `'card' | 'bank_transfer' | 'ussd'`
+  - `CheckoutSession`: Session payload (merchant, amount, currency, reference, expiresAt, narration)
+  - `PaymentSubmission`: Card, Bank Transfer, USSD submission payloads
+  - `PaymentResult`: Transaction status response
+
+#### [NEW] [lib/api/checkout-service.ts](file:///home/gamp/projects/THxZV/paymentapp/lib/api/checkout-service.ts)
+- API service contract:
+  - `getCheckoutSession(reference)`
+  - `submitPayment(reference, payload)`
+  - `getPaymentStatus(reference)`
+- Integrates with backend endpoint `API_CONFIG.BASE_URL` if configured.
+- Explicitly flags customer checkout endpoints as `BACKEND API REQUIRED` when running against the ASP.NET backend.
+- Provides seamless dev fixture integration when in testing/demo mode without polluting production logic.
+
+#### [NEW] [lib/api/dev-fixtures.ts](file:///home/gamp/projects/THxZV/paymentapp/lib/api/dev-fixtures.ts)
+- Isolated fixtures for testing all states:
+  - Valid checkout session
+  - Successful payment attempt
+  - Failed payment attempt with retry option
+  - Pending asynchronous transfer
+  - Expired payment session
+
+---
+
+### Documentation Deliverable
+
+#### [NEW] [docs/customer-checkout-api-dependencies.md](file:///home/gamp/projects/THxZV/paymentapp/docs/customer-checkout-api-dependencies.md)
+- Complete API dependency audit matrix for every customer journey step:
+  - Customer Journey Step
+  - Frontend Screen
+  - Backend Endpoint
+  - HTTP Method
+  - Request Payload
+  - Response Schema
+  - Status (`AVAILABLE` vs `BACKEND API REQUIRED`)
+
+---
+
+## Verification Plan
+
+### Automated Verification
+1. **Linting**:
+   ```bash
+   npm run lint
+   ```
+2. **TypeScript Compilation**:
+   ```bash
+   npm run typecheck
+   ```
+3. **Production Build**:
+   ```bash
+   npm run build
+   ```
+
+### Browser / Manual Verification
+1. **Successful Payment Flow**:
+   - Navigate to `/checkout/MP-DEMO-SUCCESS` (or with demo toggle).
+   - Verify Initiation: Merchant name, `₦10,000.00`, reference in `IBM Plex Mono`.
+   - Select Card, fill form, submit.
+   - Verify Processing state spinner.
+   - Verify Success confirmation screen with all transaction details.
+2. **Failed Payment & Retry Flow**:
+   - Navigate to `/checkout/MP-DEMO-FAIL`.
+   - Select Card or USSD, submit.
+   - Verify safe error notice.
+   - Click "Try again", verify it returns to details without losing session.
+   - Click "Choose another payment method", switch to Bank Transfer.
+3. **Pending Payment Flow**:
+   - Navigate to `/checkout/MP-DEMO-PENDING`.
+   - Select Bank Transfer, click "I've sent the money".
+   - Verify Pending screen with amber status pill.
+4. **Expired Payment Flow**:
+   - Navigate to `/checkout/MP-DEMO-EXPIRED`.
+   - Verify Expired screen notice.
+5. **Existing Merchant Application Verification**:
+   - Verify `index.html` (Login), `register.html`, `email-verification.html`, and `merchant-dashboard.html` still render and behave properly.
+6. **Mobile Responsiveness & Accessibility**:
+   - Test viewport widths (375px, 414px, 768px, 1024px).
+   - Check contrast, ARIA labels, keyboard focus rings (`var(--accent)`).

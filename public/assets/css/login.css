@@ -1,0 +1,224 @@
+:root{
+  --ink:#14181F;
+  --ink-soft:#1E232C;
+  --paper:#F7F6F2;
+  --card:#FFFFFF;
+  --line:#E4E2DC;
+  --line-strong:#CFCCC3;
+  --text:#14181F;
+  --text-muted:#6B6F76;
+  --text-faint:#9A9D9E;
+  --accent:#2B6E4E;
+  --accent-soft:#E4EDE7;
+  --danger:#B23A2F;
+  --danger-soft:#F4E4E1;
+  --amber:#9C6B14;
+  --amber-soft:#F3E9D6;
+  --radius:6px;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;}
+body{
+  font-family:'Public Sans',sans-serif;
+  background:var(--paper);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.login-container{
+  width:100%;
+  max-width:420px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:40px;
+}
+.brand-mark{
+  width:38px;height:38px;
+  border-radius:7px;
+  background:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;font-weight:600;color:#FFFFFF;
+  font-family:'IBM Plex Mono',monospace;
+  flex-shrink:0;
+}
+.brand-name{font-size:22px;font-weight:600;letter-spacing:0.01em;color:var(--ink);}
+
+.login-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:36px;
+  box-shadow:0 2px 8px rgba(20, 24, 31, 0.04);
+}
+
+.login-header{
+  text-align:center;
+  margin-bottom:32px;
+}
+.login-header h1{
+  font-size:21px;
+  font-weight:600;
+  margin:0 0 8px;
+  letter-spacing:-0.01em;
+  color:var(--text);
+}
+.login-header p{
+  font-size:14px;
+  color:var(--text-muted);
+  margin:0;
+}
+
+.form-group{
+  margin-bottom:20px;
+}
+.form-group label{
+  display:block;
+  font-size:13px;
+  font-weight:500;
+  color:var(--text);
+  margin-bottom:8px;
+}
+.form-group input{
+  width:100%;
+  border:1px solid var(--line-strong);
+  border-radius:var(--radius);
+  padding:11px 14px;
+  font:inherit;
+  font-size:14px;
+  color:var(--text);
+  background:var(--card);
+  transition:border-color 0.2s;
+}
+.form-group input:focus{
+  outline:none;
+  border-color:var(--accent);
+}
+.form-group input::placeholder{
+  color:var(--text-faint);
+}
+
+.form-options{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+  font-size:13px;
+}
+.checkbox-wrapper{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.checkbox-wrapper input[type="checkbox"]{
+  width:16px;
+  height:16px;
+  cursor:pointer;
+}
+.checkbox-wrapper label{
+  color:var(--text-muted);
+  cursor:pointer;
+  user-select:none;
+}
+.forgot-link{
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:500;
+}
+.forgot-link:hover{
+  text-decoration:underline;
+}
+
+.btn-login{
+  width:100%;
+  background:var(--ink);
+  color:#F5F4EF;
+  border:none;
+  border-radius:var(--radius);
+  padding:12px 16px;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+  transition:background 0.2s;
+}
+.btn-login:hover:not(:disabled){
+  background:var(--ink-soft);
+}
+.btn-login:disabled{
+  opacity:0.55;
+  cursor:wait;
+}
+
+.alert{
+  margin-bottom:20px;
+  padding:12px 16px;
+  border-radius:var(--radius);
+  font-size:13px;
+  display:none;
+}
+.alert.show{
+  display:block;
+}
+.alert.error{
+  background:var(--danger-soft);
+  color:var(--danger);
+  border:1px solid var(--danger);
+}
+.alert.success{
+  background:var(--accent-soft);
+  color:var(--accent);
+  border:1px solid var(--accent);
+}
+
+.login-footer{
+  text-align:center;
+  margin-top:24px;
+  padding-top:24px;
+  border-top:1px solid var(--line);
+  font-size:13px;
+  color:var(--text-muted);
+}
+.login-footer a{
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:500;
+}
+.login-footer a:hover{
+  text-decoration:underline;
+}
+
+.env-badge{
+  text-align:center;
+  margin-top:20px;
+}
+.badge{
+  display:inline-block;
+  font-size:11.5px;
+  padding:5px 12px;
+  border-radius:4px;
+  font-weight:500;
+  background:var(--accent-soft);
+  color:var(--accent);
+}
+
+@media (max-width:480px){
+  .login-card{
+    padding:28px 24px;
+  }
+  .brand{
+    margin-bottom:32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important;}
+}

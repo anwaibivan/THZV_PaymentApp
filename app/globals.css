@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #14181F;
+  --ink-soft: #1E232C;
+  --paper: #F7F6F2;
+  --card: #FFFFFF;
+  --line: #E4E2DC;
+  --line-strong: #CFCCC3;
+  --text: #14181F;
+  --text-muted: #6B6F76;
+  --text-faint: #9A9D9E;
+  --accent: #2B6E4E;
+  --accent-soft: #E4EDE7;
+  --danger: #B23A2F;
+  --danger-soft: #F4E4E1;
+  --amber: #9C6B14;
+  --amber-soft: #F3E9D6;
+  --radius: 6px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-public-sans), 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--paper);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.num {
+  font-family: var(--font-ibm-plex-mono), 'IBM Plex Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Brand mark matching the existing system */
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 7px;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+  color: #FFFFFF;
+  font-family: var(--font-ibm-plex-mono), 'IBM Plex Mono', monospace;
+  flex-shrink: 0;
+}
+
+/* Status Pill matching the existing dashboard */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 4px 9px;
+  border-radius: 4px;
+}
+.status.success {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.status.failed {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+.status.pending {
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+/* Base button styling */
+.btn-primary {
+  background: var(--ink);
+  color: #F5F4EF;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--ink-soft);
+}
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 11px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--paper);
+  border-color: var(--ink);
+}
+
+/* Alerts */
+.alert {
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  font-size: 13px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.alert.error {
+  background: var(--danger-soft);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+.alert.warning {
+  background: var(--amber-soft);
+  color: var(--amber);
+  border: 1px solid var(--amber);
+}
+.alert.success {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

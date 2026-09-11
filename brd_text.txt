@@ -1,0 +1,281 @@
+MERCHANTPAY LITE
+User Roles, Mappings, and User Journeys
+1. User Roles
+Merchant
+●​ Description: Business owners and commercial entities using MerchantPay Lite to securely accept
+online payments from their customers for goods and services.
+●​ Business Goals: Collect payments promptly, view consolidated payment histories, monitor daily
+bank settlements, and quickly resolve payment exceptions to maintain healthy cash flow.
+●​ Business Challenges: Multiple external payment integrations leading to fragmented reporting,
+delayed fund settlements, high manual reconciliation effort, and poor real-time payment status
+visibility.
+●​ Business Value: Provides a centralized, secure payment collection framework that streamlines fund
+acceptance, improves settlement speed, and automates payment reporting.
+
+Customer
+●​ Description: Individual buyers or entity representatives purchasing goods or services provided by
+merchants operating on the platform.
+●​ Business Goals: Complete checkout transactions quickly, receive immediate verification of payment
+completion, and experience a secure payment flow.
+●​ Business Challenges: Frequent payment failures, delayed confirmation receipts, unclear error
+notices during checkout, and lack of transaction transparency.
+●​ Business Value: Delivers a dependable, transparent payment processing environment that ensures
+immediate transaction feedback and reduces checkout friction.
+
+Bank Operations Officer
+●​ Description: Internal bank personnel responsible for administrative payment oversight, settlement
+verification, financial reconciliation, and operational issue resolution.
+●​ Business Goals: Maintain oversight of daily payment activities, ensure accurate account
+reconciliation, investigate transaction failures, and generate comprehensive operational reports.
+●​ Business Challenges: Reliance on manual reconciliation processes, fragmented operational
+reporting tools, time-consuming dispute investigations, and high operational overhead costs.
+●​ Business Value: Centralizes operational monitoring, reduces manual workload, accelerates
+transaction investigations, and improves settlement accuracy.
+
+System Administrator
+●​ Description: Internal technical governance personnel responsible for managing overall platform
+operations, account provisioning, platform availability, and security compliance.
+●​ Business Goals: Maintain high system availability, manage user access permissions, oversee
+merchant onboarding, and safeguard platform data security.
+●​ Business Challenges: Balancing system scalability with security compliance, managing access rights
+safely across diverse user roles, and maintaining comprehensive operational audit logs.
+●​ Business Value: Ensures operational governance, system reliability, regulatory compliance, and
+scalable platform administration.
+
+Customer Support Representative
+●​ Description: Frontline operational personnel tasked with responding to customer and merchant
+inquiries, troubleshooting transaction complaints, and providing payment resolution assistance.
+
+●​ Business Goals: Resolve user inquiries quickly, locate transaction records efficiently, provide
+accurate payment status updates, and minimize complaint resolution cycles.
+●​ Business Challenges: Incomplete transaction visibility, reliance on disparate legacy systems to trace
+payment status, and slow inquiry turnaround times.
+●​ Business Value: Enables single-point visibility into transaction activity and historical logs, improving
+response accuracy and customer satisfaction.
+
+Fraud & Risk Officer
+●​ Description: Internal risk management specialists focused on monitoring transaction activity,
+preventing fraudulent transactions, managing chargebacks, and mitigating financial risks.
+●​ Business Goals: Protect bank and merchant revenue, identify suspicious payment activity early,
+enforce risk controls, and minimize financial exposure.
+●​ Business Challenges: High transaction volume making manual risk identification difficult,
+unauthorized financial activities, potential security breaches, and legal exposure.
+●​ Business Value: Delivers automated risk oversight and control capabilities, protecting ecosystem
+participants from financial fraud and operational losses.
+
+External Compliance Auditor
+●​ Description: Regulatory and compliance oversight authorities responsible for auditing financial
+records, system security integrity, operational policies, and statutory compliance.
+●​ Business Goals: Verify operational compliance with regulatory guidelines, evaluate financial audit
+trails, and ensure systemic data security integrity.
+●​ Business Challenges: Gathering comprehensive audit trails from fragmented systems, verifying
+compliance across multiple operational processes, and ensuring data integrity.
+●​ Business Value: Provides verifiable, transparent audit trails and centralized reporting access to
+simplify regulatory reporting and compliance verifications.
+
+Developer / System Integrator
+●​ Description: Technical partner teams responsible for connecting merchant enterprise platforms and
+e-commerce websites to the payment gateway service.
+●​ Business Goals: Integrate merchant systems smoothly, enable automated payment collection, verify
+integration reliability, and minimize technical setup delays.
+●​ Business Challenges: Managing complex third-party payment connections, addressing technical
+integration errors, and adapting to custom business requirements.
+●​ Business Value: Streamlines merchant setup, accelerates onboarding timelines, and enables
+automated payment acceptance for merchant businesses.
+
+2. Business Responsibilities by Persona
+Merchant
+●​ Creating Payment Requests: Generating payment requests to initiate secure fund collection for
+goods or services offered.
+●​ Monitoring Incoming Payments: Tracking customer transaction statuses and fund receipts in real
+time.
+●​ Reviewing Settlements: Monitoring bank payout schedules, reviewing settlement details, and
+verifying payout balances.
+●​ Managing Business Information: Maintaining business profile information, updating payment
+collection preferences, and ensuring account data accuracy.
+●​ Tracking Business Performance: Utilizing transaction data and summary reports to evaluate sales
+activity and revenue trends.
+
+Customer
+●​ Choosing a Preferred Payment Method: Selecting the payment instrument best suited for
+completing the transaction.
+●​ Completing Payments: Authorizing and submitting accurate payment information to fulfill
+purchasing obligations.
+●​ Confirming Payment Information: Reviewing checkout details and verifying transaction receipts
+post-purchase.
+●​ Keeping Payment Credentials Secure: Safeguarding personal financial identifiers and
+authentication credentials during payment execution.
+
+Bank Operations Officer
+●​ Monitoring Settlements: Overseeing financial transfer processes to ensure merchant payout
+schedules are executed accurately.
+●​ Reconciling Payment Records: Cross-referencing transaction activity logs against bank settlement
+funds to maintain financial accuracy.
+●​ Investigating Transaction Issues: Tracing payment failures, analyzing dispute origins, and guiding
+exception resolution processes.
+●​ Resolving Settlement Discrepancies: Addressing financial variances, unapplied funds, and
+processing delays to balance operational accounts.
+
+System Administrator
+●​ Managing Merchant Onboarding: Authorizing new merchant registrations, reviewing profile data,
+and activating service privileges.
+●​ Governing Platform Access & Permissions: Assigning security roles, managing operational
+entitlements, and ensuring appropriate administrative controls.
+●​ Ensuring Platform Health & Security: Overseeing system reliability, maintaining platform operational
+capabilities, and enforcing data security standards.
+●​ Maintaining Audit Logs: Preserving comprehensive operational activity logs to satisfy regulatory
+requirements and operational reviews.
+
+Customer Support Representative
+●​ Locating Transaction Records: Researching customer and merchant payment records to address
+operational inquiries.
+●​ Analyzing Failure Causes: Reviewing transaction activity logs to identify causes of payment
+interruptions or delays.
+●​ Assisting Inquiry Resolution: Guiding merchants and customers toward resolving payment
+discrepancies and re-issuing transaction notices.
+
+Fraud & Risk Officer
+●​ Monitoring Flagged Transactions: Reviewing suspicious or high-risk transaction activities against
+institutional risk criteria.
+●​ Enforcing Operational Risk Controls: Temporarily holding payouts or placing restrictions on
+accounts flagged for security review.
+●​ Mitigating Financial Risk: Managing chargeback disputes, investigating unauthorized transaction
+attempts, and limiting institutional liability.
+
+External Compliance Auditor
+●​ Reviewing System Audit Trails: Inspecting system usage records, administrative changes, and
+financial processing trails.
+●​ Verifying Regulatory Compliance: Assessing gateway operations against industry financial
+
+standards, data security norms, and legal rules.
+●​ Exporting Compliance Data: Extracting financial and security operational logs for formal regulatory
+submission and governance reviews.
+
+Developer / System Integrator
+●​ Establishing Technical Integration: Connecting merchant e-commerce platforms to payment
+collection services.
+●​ Verifying Payment Processing Workflows: Validating that merchant platforms correctly initiate
+payments and receive status updates.
+●​ Maintaining Connection Security: Ensuring API authentication credentials and callback
+configurations adhere to security practices.
+
+3. Business User Journeys
+Merchant User Journey
+●​ Business Need: The merchant needs an efficient way to accept digital payments from customers,
+eliminate payment collection bottlenecks, track incoming revenues, and streamline bank account
+settlements.
+●​ Business Process:
+○​ Onboarding & Access: The merchant completes business profile setup, verifies account
+credentials, and accesses the payment administration interface.
+○​ Payment Request Generation: The merchant creates digital payment requests to facilitate
+transactions for sales opportunities.
+○​ Real-Time Oversight: The merchant tracks sales activity as customer payments are processed,
+monitoring real-time completion statuses.
+○​ Reconciliation & Reporting: The merchant reviews daily transaction summaries and settlement
+reports to verify that funds are transferred accurately to their bank account.
+○​ Exception Resolution: In cases where payments fail, the merchant reviews transaction details to
+identify the cause and assist the customer in completing the transaction.
+●​ Expected Business Outcome: Accelerated cash collection, reduced manual reconciliation effort,
+complete payment visibility, and dependable fund settlements.
+
+Customer User Journey
+●​ Business Need: The customer wants a simple, intuitive, and trustworthy checkout process to pay for
+goods or services online without operational errors or uncertainty.
+●​ Business Process:
+○​ Checkout Initiation: The customer initiates the purchase process by selecting their preferred
+payment method.
+○​ Payment Fulfillment: The customer provides the necessary payment authorization details to
+complete the purchase.
+○​ Verification & Confirmation: The system processes the payment, delivering immediate
+notification confirming whether the transaction was successful or encountered an issue.
+●​ Expected Business Outcome: A secure checkout experience, immediate confirmation of
+transaction completion, and minimal purchase friction.
+
+Bank Operations Officer User Journey
+●​ Business Need: The Operations Officer requires unified operational visibility to oversee daily
+merchant payment activities, resolve operational exceptions, and ensure accurate financial
+reconciliation.
+●​ Business Process:
+○​ Daily Operational Monitoring: The officer monitors daily processing volumes across all active
+
+merchants on the network.
+○​ Transaction Investigation: The officer investigates payment failures and merchant payout
+inquiries using transaction event histories.
+○​ Reconciliation Management: The officer matches platform payment totals with bank settlement
+batches, identifying and resolving any financial discrepancies.
+○​ Operational Reporting: The officer generates daily settlement logs and summary reports for
+executive leadership and internal audit teams.
+●​ Expected Business Outcome: Efficient operational oversight, streamlined financial reconciliation,
+reduced support escalation resolution times, and accurate merchant payouts.
+
+System Administrator User Journey
+●​ Business Need: The Administrator requires centralized management capabilities to provision users,
+control operational access, and maintain data security, availability, and regulatory compliance.
+●​ Business Process:
+○​ Merchant Provisioning: The administrator reviews and approves new merchant access,
+activating operational payment privileges.
+○​ Access Governance: The administrator assigns user roles, reviews operational permissions, and
+maintains access security boundaries across all organizational roles.
+○​ System Oversight: The administrator checks system activity metrics and performance health
+indicators to ensure continuous processing availability.
+○​ Audit Log Management: The administrator monitors operational logging processes to preserve
+comprehensive records for financial and security compliance requirements.
+●​ Expected Business Outcome: Controlled system access, sustained high availability, robust
+operational security, and complete audit readiness.
+
+Customer Support Representative User Journey
+●​ Business Need: The Support Representative needs efficient lookup tools to investigate merchant
+and customer transaction issues, explain failure causes, and resolve customer complaints promptly.
+●​ Business Process:
+○​ Inquiry Intake: The representative receives a customer or merchant inquiry regarding an
+unconfirmed payment or settlement delay.
+○​ Information Retrieval: The representative searches for the payment using relevant customer or
+business reference identifiers.
+○​ Status & Error Analysis: The representative evaluates transaction step logs to determine the
+exact cause of processing interruptions.
+○​ Issue Resolution: The representative provides status clarity, triggers updated transaction
+notifications, or escalates complex operational issues to Bank Operations.
+●​ Expected Business Outcome: Faster inquiry resolution, improved customer satisfaction, reduced
+operational confusion, and consistent communication.
+
+Fraud & Risk Officer User Journey
+●​ Business Need: The Risk Officer needs visibility into payment patterns to safeguard platform
+transactions, prevent fraud losses, and ensure risk compliance.
+●​ Business Process:
+○​ Risk Queue Monitoring: The officer monitors automated risk indicators to identify abnormal
+payment patterns or high-risk transactions.
+○​ Transaction Investigation: The officer analyzes transaction details, merchant activity trends, and
+payment attempts to determine potential risk exposure.
+○​ Risk Control Enforcement: The officer places temporary holds on flagged merchant payouts or
+suspicious transactions while conducting further safety verifications.
+●​ Expected Business Outcome: Reduced risk of financial fraud, protection of institutional reputation,
+
+and reduced chargeback exposure.
+
+External Compliance Auditor User Journey
+●​ Business Need: The Compliance Auditor requires verified access to operational trails, transaction
+logs, and financial settlement records to confirm statutory compliance.
+●​ Business Process:
+○​ Compliance Review Initiation: The auditor specifies the scope and timeframes for regulatory
+inspection.
+○​ Audit Trail Examination: The auditor inspects read-only system logs, user access activities, and
+settlement balances.
+○​ Data Extraction & Verification: The auditor exports structured activity logs to verify operational
+accuracy against industry compliance standards.
+●​ Expected Business Outcome: Transparent compliance reviews, validated operational reporting, and
+verification of institutional governance standards.
+
+Developer / System Integrator User Journey
+●​ Business Need: The Integrator needs a reliable integration process to link merchant systems with the
+payment gateway, enabling automated payment processing.
+●​ Business Process:
+○​ Integration Setup: The integrator obtains system connection credentials and configures
+payment settings according to business needs.
+○​ Workflow Validation: The integrator tests payment workflows, payment status messaging, and
+transaction response handling.
+○​ Production Activation: The integrator enables the payment integration on live merchant sales
+platforms to allow customer transactions.
+●​ Expected Business Outcome: Efficient merchant deployment, dependable payment integration, and
+automated business payment collection.
+
+
