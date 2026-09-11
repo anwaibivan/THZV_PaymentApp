@@ -129,6 +129,14 @@
       return;
     }
 
+     // Validate email (basic check)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(emailInput.value.trim())) {
+      showAlert('Please enter a valid email address', 'error');
+      return false;
+    }
+
     performLogin(email, password);
   });
 
