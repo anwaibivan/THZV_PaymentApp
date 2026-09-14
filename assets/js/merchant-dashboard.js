@@ -112,8 +112,16 @@
 
     // Update browser URL query without reload
     if (pushState !== false) {
-      var newUrl = window.location.pathname + '?tab=' + tabId;
-      if (merchantId && merchantId !== '1') newUrl += '&merchantId=' + encodeURIComponent(merchantId);
+      var newUrl;
+      var path = window.location.pathname;
+      if (path.indexOf('/merchant') === 0) {
+        newUrl = '/merchant/' + tabId;
+      } else {
+        newUrl = path + '?tab=' + tabId;
+      }
+      if (merchantId && merchantId !== '1') {
+        newUrl += (newUrl.indexOf('?') === -1 ? '?' : '&') + 'merchantId=' + encodeURIComponent(merchantId);
+      }
       window.history.pushState({ tab: tabId }, '', newUrl);
     }
 
@@ -168,10 +176,25 @@
   var viewBreakdownBtn = document.getElementById('view-breakdown-btn');
   if (viewBreakdownBtn) viewBreakdownBtn.addEventListener('click', function () { switchTab('transactions'); });
 
+  function getActiveTabFromLocation() {
+    var searchParams = new URLSearchParams(window.location.search);
+    var fromQuery = searchParams.get('tab');
+    if (fromQuery && (TABS[fromQuery] || fromQuery === 'verification')) {
+      return fromQuery;
+    }
+    var pathParts = window.location.pathname.split('/').filter(Boolean);
+    for (var i = pathParts.length - 1; i >= 0; i--) {
+      var part = pathParts[i].toLowerCase();
+      if (TABS[part] || part === 'verification') {
+        return part;
+      }
+    }
+    return 'overview';
+  }
+
   // Handle browser back / forward buttons
   window.addEventListener('popstate', function (e) {
-    var params = new URLSearchParams(window.location.search);
-    var tab = params.get('tab') || 'overview';
+    var tab = (e.state && e.state.tab) || getActiveTabFromLocation();
     switchTab(tab, false);
   });
 
@@ -1616,7 +1639,7 @@
   }
 
   // --- 17. Initial Execution ---
-  var initialTab = urlParams.get('tab') || 'overview';
+  var initialTab = getActiveTabFromLocation();
   if (initialTab === 'verification') {
     switchTab('settings', false);
     setTimeout(navigateToVerification, 80);

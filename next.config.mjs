@@ -4,6 +4,10 @@ const nextConfig = {
   async rewrites() {
     return [
       {
+        source: '/merchant/assets/:path*',
+        destination: '/assets/:path*',
+      },
+      {
         source: '/merchant',
         destination: '/merchant-dashboard.html?tab=overview',
       },
