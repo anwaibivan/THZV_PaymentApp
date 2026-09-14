@@ -236,15 +236,6 @@ export const CheckoutClient: React.FC<CheckoutClientProps> = ({
               <p className="text-xs">{error || "Unable to find session."}</p>
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              window.location.href = "/merchant-dashboard.html";
-            }}
-            className="btn-secondary w-full py-2.5 text-xs cursor-pointer"
-          >
-            Return to Dashboard
-          </button>
         </div>
       </CheckoutShell>
     );

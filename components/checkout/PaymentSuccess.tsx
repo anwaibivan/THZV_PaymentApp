@@ -2,16 +2,14 @@
 
 import React from "react";
 import { PaymentVerificationResult } from "@/types/checkout";
-import { CheckCircle2, Printer, ArrowRight } from "lucide-react";
+import { CheckCircle2, Printer } from "lucide-react";
 
 interface PaymentSuccessProps {
   result: PaymentVerificationResult;
-  onReturnToMerchant?: () => void;
 }
 
 export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({
   result,
-  onReturnToMerchant,
 }) => {
   const formattedAmount = new Intl.NumberFormat("en-NG", {
     style: "currency",
@@ -105,7 +103,7 @@ export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({
       </div>
 
       {/* Action Buttons */}
-      <div className="space-y-2.5 pt-2">
+      <div className="pt-2">
         <button
           type="button"
           onClick={handlePrint}
@@ -113,21 +111,6 @@ export const PaymentSuccess: React.FC<PaymentSuccessProps> = ({
         >
           <Printer className="w-3.5 h-3.5 text-text-muted" />
           <span>Print / Save Receipt</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            if (onReturnToMerchant) {
-              onReturnToMerchant();
-            } else {
-              window.location.href = "/merchant-dashboard.html";
-            }
-          }}
-          className="btn-primary w-full py-3 text-sm flex items-center justify-center gap-2 font-semibold rounded-[6px] cursor-pointer"
-        >
-          <span>Return to Merchant</span>
-          <ArrowRight className="w-4 h-4" />
         </button>
       </div>
     </div>

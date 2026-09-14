@@ -1,17 +1,15 @@
 "use client";
 
 import React from "react";
-import { Clock, ArrowRight } from "lucide-react";
+import { Clock } from "lucide-react";
 import { CheckoutSession } from "@/types/checkout";
 
 interface PaymentExpiredProps {
   session: CheckoutSession;
-  onReturnToMerchant?: () => void;
 }
 
 export const PaymentExpired: React.FC<PaymentExpiredProps> = ({
   session,
-  onReturnToMerchant,
 }) => {
   return (
     <div className="py-8 space-y-6 text-center">
@@ -41,23 +39,6 @@ export const PaymentExpired: React.FC<PaymentExpiredProps> = ({
           <span className="text-text-muted">Merchant</span>
           <span className="text-text">{session.merchantName}</span>
         </div>
-      </div>
-
-      <div className="pt-2">
-        <button
-          type="button"
-          onClick={() => {
-            if (onReturnToMerchant) {
-              onReturnToMerchant();
-            } else {
-              window.location.href = "/merchant-dashboard.html";
-            }
-          }}
-          className="btn-primary w-full py-3 text-sm flex items-center justify-center gap-2 font-semibold rounded-[6px] cursor-pointer"
-        >
-          <span>Return to Merchant to Restart</span>
-          <ArrowRight className="w-4 h-4" />
-        </button>
       </div>
     </div>
   );

@@ -1,19 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import { Clock, RefreshCw, ArrowRight } from "lucide-react";
+import { Clock, RefreshCw } from "lucide-react";
 import { PaymentVerificationResult } from "@/types/checkout";
 
 interface PaymentPendingProps {
   result: PaymentVerificationResult;
   onCheckStatus: () => Promise<void>;
-  onReturnToMerchant?: () => void;
 }
 
 export const PaymentPending: React.FC<PaymentPendingProps> = ({
   result,
   onCheckStatus,
-  onReturnToMerchant,
 }) => {
   const [checking, setChecking] = useState(false);
 
@@ -79,7 +77,7 @@ export const PaymentPending: React.FC<PaymentPendingProps> = ({
       </div>
 
       {/* Action Buttons */}
-      <div className="space-y-2.5 pt-2">
+      <div className="pt-2">
         <button
           type="button"
           disabled={checking}
@@ -88,21 +86,6 @@ export const PaymentPending: React.FC<PaymentPendingProps> = ({
         >
           <RefreshCw className={`w-4 h-4 ${checking ? "animate-spin" : ""}`} />
           <span>{checking ? "Checking Bank Status..." : "Check Status Now"}</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            if (onReturnToMerchant) {
-              onReturnToMerchant();
-            } else {
-              window.location.href = "/merchant-dashboard.html";
-            }
-          }}
-          className="btn-secondary w-full py-2.5 text-xs flex items-center justify-center gap-2 cursor-pointer"
-        >
-          <span>Return to Merchant</span>
-          <ArrowRight className="w-3.5 h-3.5 text-text-muted" />
         </button>
       </div>
     </div>

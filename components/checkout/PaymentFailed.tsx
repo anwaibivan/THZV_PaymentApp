@@ -1,21 +1,19 @@
 "use client";
 
 import React from "react";
-import { AlertTriangle, RefreshCw, ArrowLeft, ArrowRight } from "lucide-react";
+import { AlertTriangle, RefreshCw, ArrowLeft } from "lucide-react";
 import { PaymentVerificationResult } from "@/types/checkout";
 
 interface PaymentFailedProps {
   result: PaymentVerificationResult;
   onRetry: () => void;
   onChangeMethod: () => void;
-  onReturnToMerchant?: () => void;
 }
 
 export const PaymentFailed: React.FC<PaymentFailedProps> = ({
   result,
   onRetry,
   onChangeMethod,
-  onReturnToMerchant,
 }) => {
   const formattedAmount = new Intl.NumberFormat("en-NG", {
     style: "currency",
@@ -96,21 +94,6 @@ export const PaymentFailed: React.FC<PaymentFailedProps> = ({
         >
           <ArrowLeft className="w-3.5 h-3.5 text-text-muted" />
           <span>Choose Another Payment Method</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            if (onReturnToMerchant) {
-              onReturnToMerchant();
-            } else {
-              window.location.href = "/merchant-dashboard.html";
-            }
-          }}
-          className="w-full py-2 text-xs text-text-muted hover:text-text transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-        >
-          <span>Cancel and Return to Merchant</span>
-          <ArrowRight className="w-3.5 h-3.5" />
         </button>
       </div>
     </div>

@@ -113,7 +113,7 @@ export default function HomePage() {
                   Expired Session
                 </span>
                 <span className="text-[11px] text-text-muted block mt-0.5">
-                  Timeout &amp; return to merchant
+                  Session timeout and security expiry
                 </span>
               </div>
             </Link>
