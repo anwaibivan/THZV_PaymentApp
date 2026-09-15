@@ -5,23 +5,29 @@
   var REGISTER_ENDPOINT = getApiUrl(API_CONFIG.ENDPOINTS.REGISTER);
   var VERIFICATION_URL = 'email-verification.html';
 
+  // Shared with login.js and business-activation.js. Once a merchant
+  // registers, they need to complete business activation before their
+  // first dashboard visit. This is a front-end nudge only — nothing
+  // stops someone from typing merchant-dashboard.html directly, since
+  // there's no backend check yet. A real gate would need the backend
+  // to reject dashboard requests for unactivated merchants.
+  var PENDING_ACTIVATION_KEY = 'pending_business_activation';
+
+  function markActivationPending() {
+    try { window.localStorage.setItem(PENDING_ACTIVATION_KEY, 'true'); }
+    catch (e) { /* storage may be unavailable (e.g. private mode) */ }
+  }
+
   // DOM Elements
   var registerForm = document.getElementById('register-form');
   var businessNameInput = document.getElementById('business-name');
   var contactEmailInput = document.getElementById('contact-email');
   var contactPhoneInput = document.getElementById('contact-phone');
-  var settlementBankSelect = document.getElementById('settlement-bank');
-  var settlementAccountInput = document.getElementById('settlement-account');
   var passwordInput = document.getElementById('password');
   var confirmPasswordInput = document.getElementById('confirm-password');
   var termsCheckbox = document.getElementById('terms');
   var registerButton = document.getElementById('register-button');
   var alertMessage = document.getElementById('alert-message');
-  var accountVerification = document.getElementById('account-verification');
-  var verificationLoading = document.getElementById('verification-loading');
-  var verificationResult = document.getElementById('verification-result');
-
-  var accountVerificationTimeout = null;
 
   // Helper Functions
   function showAlert(message, type) {
@@ -79,14 +85,6 @@
       return false;
     }
 
-    // Validate account number
-    if (!/^\d{10}$/.test(settlementAccountInput.value)) {
-      showAlert('Account number must be exactly 10 digits', 'error');
-      return false;
-    }
-
-    
-
     // Check terms
     if (!termsCheckbox.checked) {
       showAlert('You must agree to the Terms of Service and Privacy Policy', 'error');
@@ -96,38 +94,9 @@
     return true;
   }
 
-  function verifyBankAccount() {
-    var bankCode = settlementBankSelect.value;
-    var accountNumber = settlementAccountInput.value;
-
-    if (!bankCode || !accountNumber || accountNumber.length !== 10) {
-      accountVerification.classList.remove('show');
-      return;
-    }
-
-    // Show verification UI
-    accountVerification.classList.add('show');
-    verificationLoading.style.display = 'flex';
-    verificationResult.style.display = 'none';
-    verificationResult.className = 'verification-result';
-
-    // Simulate account verification (replace with actual API call)
-    setTimeout(function () {
-      verificationLoading.style.display = 'none';
-      verificationResult.style.display = 'block';
-      
-      // Mock success response - replace with actual verification
-      verificationResult.className = 'verification-result success';
-      verificationResult.textContent = '✓ Account verified: Business Account Name';
-      
-      // For error state, use:
-      // verificationResult.className = 'verification-result error';
-      // verificationResult.textContent = '✗ Could not verify account. Please check details.';
-    }, 1500);
-  }
-
   function handleRegistrationSuccess(data) {
     sessionStorage.setItem('verification_email', contactEmailInput.value.trim());
+    markActivationPending();
     showAlert(
       data.message || 'Account created successfully! Check your email for a verification code.',
       'success'
@@ -140,6 +109,7 @@
 
   function continueToEmailVerification() {
     sessionStorage.setItem('verification_email', contactEmailInput.value.trim());
+    markActivationPending();
     window.location.href = VERIFICATION_URL;
   }
 
@@ -176,8 +146,6 @@
     params.append('businessName', formData.businessName);
     params.append('contactEmail', formData.contactEmail);
     params.append('contactPhone', formData.contactPhone);
-    params.append('settlementBankCode', formData.settlementBankCode);
-    params.append('settlementAccountNo', formData.settlementAccountNo);
     params.append('password', formData.password);
 
     console.log('Submitting to:', REGISTER_ENDPOINT); // Debug logging
@@ -234,27 +202,11 @@
       businessName: businessNameInput.value.trim(),
       contactEmail: contactEmailInput.value.trim(),
       contactPhone: contactPhoneInput.value.trim(),
-      settlementBankCode: settlementBankSelect.value,
-      settlementAccountNo: settlementAccountInput.value.trim(),
       password: passwordInput.value,
       isActive: true
     };
 
     performRegistration(formData);
-  });
-
-  // Account verification on input change
-  settlementBankSelect.addEventListener('change', function () {
-    clearTimeout(accountVerificationTimeout);
-    accountVerificationTimeout = setTimeout(verifyBankAccount, 500);
-  });
-
-  settlementAccountInput.addEventListener('input', function () {
-    // Only allow numbers
-    this.value = this.value.replace(/\D/g, '');
-    
-    clearTimeout(accountVerificationTimeout);
-    accountVerificationTimeout = setTimeout(verifyBankAccount, 800);
   });
 
   // Phone number formatting

@@ -7,6 +7,17 @@
   var dashboardEndpoint = getApiUrl(API_CONFIG.ENDPOINTS.DASHBOARD);
   var createPaymentEndpoint = getApiUrl(API_CONFIG.ENDPOINTS.CREATE_PAYMENT);
 
+  // Shared with register.js / login.js / business-activation.js. Shows
+  // the 'finish activating' banner only while activation is unfinished.
+  (function showActivationNudge() {
+    var nudge = document.getElementById('activation-nudge');
+    if (!nudge) return;
+    var pending = false;
+    try { pending = window.localStorage.getItem('pending_business_activation') === 'true'; }
+    catch (e) { /* storage may be unavailable */ }
+    nudge.hidden = !pending;
+  })();
+
   function money(value, code) {
     try { return new Intl.NumberFormat('en-NG', { style: 'currency', currency: code || 'NGN', maximumFractionDigits: 2 }).format(value); }
     catch (error) { return currency.format(value); }

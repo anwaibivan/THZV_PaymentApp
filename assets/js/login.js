@@ -4,6 +4,16 @@
   // API Configuration - loaded from config.js
   var LOGIN_ENDPOINT = getApiUrl(API_CONFIG.ENDPOINTS.LOGIN);
   var DASHBOARD_URL = 'merchant-dashboard.html';
+  var ACTIVATION_URL = 'business-activation.html';
+
+  // Set by register.js right after signup, cleared by business-activation.js
+  // once the merchant submits activation for review.
+  var PENDING_ACTIVATION_KEY = 'pending_business_activation';
+
+  function needsActivation() {
+    try { return window.localStorage.getItem(PENDING_ACTIVATION_KEY) === 'true'; }
+    catch (e) { return false; }
+  }
 
   // DOM Elements
   var loginForm = document.getElementById('login-form');
@@ -36,8 +46,8 @@
     storage.setItem('expires_at', Date.now() + (expiresIn * 1000));
   }
 
-  function redirectToDashboard() {
-    window.location.href = DASHBOARD_URL;
+  function redirectAfterLogin() {
+    window.location.href = needsActivation() ? ACTIVATION_URL : DASHBOARD_URL;
   }
 
   function handleLoginSuccess(data) {
@@ -46,17 +56,17 @@
       showAlert(data.message || 'Login successful! Redirecting...', 'success');
       
       setTimeout(function () {
-        redirectToDashboard();
+        redirectAfterLogin();
       }, 1000);
     } else {
-      redirectToDashboard();
+      redirectAfterLogin();
     }
   }
 
   function handleLoginError(error) {
     // Allow the local front-end flow to continue without a running API.
     if (!error.status) {
-      redirectToDashboard();
+      redirectAfterLogin();
       return;
     }
 
@@ -146,7 +156,7 @@
     var expiresAt = localStorage.getItem('expires_at') || sessionStorage.getItem('expires_at');
     
     if (token && expiresAt && Date.now() < parseInt(expiresAt, 10)) {
-      redirectToDashboard();
+      redirectAfterLogin();
     }
   })();
 
