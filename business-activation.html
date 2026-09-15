@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment App — Activate your business</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/business-activation.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">P</div>
+      <div class="brand-name">Payment App</div>
+    </div>
+
+    <div class="nav-group">
+      <a class="nav-item" href="merchant-dashboard.html">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8.5" y="1.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="1.5" y="8.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/><rect x="8.5" y="8.5" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.3"/></svg>
+        Overview
+      </a>
+      <a class="nav-item" href="merchant-dashboard.html">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5.5h12M2 8h12M2 10.5h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Transactions
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 3.5 13.5 8 9 12.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Payouts
+      </a>
+      <a class="nav-item" href="#">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M2.8 13.2c.6-2.3 2.7-3.7 5.2-3.7s4.6 1.4 5.2 3.7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        Customers
+      </a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Configure</div>
+      <a class="nav-item active" href="business-activation.html">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.8v1.6M8 12.6v1.6M14.2 8h-1.6M3.4 8H1.8M12.2 3.8l-1.1 1.1M4.9 11.1l-1.1 1.1M12.2 12.2l-1.1-1.1M4.9 4.9 3.8 3.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Activate business
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="avatar">NA</div>
+      <div>
+        <div class="inline-strong">Nomad Retail Ltd</div>
+        <div><a href="index.html">Logout</a></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h1>Activate your business</h1>
+        <div class="sub">Complete each section to unlock full processing limits</div>
+      </div>
+    </div>
+
+    <div class="alert" id="alert-message" role="alert"></div>
+
+    <div class="activation-banner">
+      <div>
+        <h2>Registered Business Activation</h2>
+        <p>Provide the information below for our review team. Your account is activated once every section is complete and verified.</p>
+      </div>
+      <div class="progress-ring" id="progress-ring">
+        <div class="progress-ring-inner">
+          <span id="progress-percent">0%</span>
+          <small>Complete</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="activation-panel">
+      <nav class="step-list" id="step-list" aria-label="Activation sections">
+        <button type="button" class="step-item active" data-step="business-info">
+          <span class="step-dot"></span> Business Information <span class="step-arrow">&rsaquo;</span>
+        </button>
+        <button type="button" class="step-item" data-step="business-address">
+          <span class="step-dot"></span> Business Address <span class="step-arrow">&rsaquo;</span>
+        </button>
+        <button type="button" class="step-item" data-step="account-info">
+          <span class="step-dot"></span> Account Information <span class="step-arrow">&rsaquo;</span>
+        </button>
+        <button type="button" class="step-item" data-step="owners">
+          <span class="step-dot"></span> Beneficial Owners' Information <span class="step-arrow">&rsaquo;</span>
+        </button>
+        <button type="button" class="step-item" data-step="documents">
+          <span class="step-dot"></span> Company Registration Documents <span class="step-arrow">&rsaquo;</span>
+        </button>
+        <button type="button" class="step-item" data-step="agreement">
+          <span class="step-dot"></span> Agreement &amp; Indemnity <span class="step-arrow">&rsaquo;</span>
+        </button>
+      </nav>
+
+      <div class="step-content">
+        <p class="required-note">All fields marked with <span class="required">*</span> are required.</p>
+
+        <!-- Step 1: Business Information -->
+        <section class="step-panel active" id="panel-business-info" data-panel="business-info">
+          <h3>Business Information <span class="required">*</span></h3>
+
+          <div class="form-group">
+            <label for="biz-name">Business name <span class="required">*</span></label>
+            <input type="text" id="biz-name" placeholder="Enter your registered business name" maxlength="255">
+            <small class="form-help">Must match the name on your registration/incorporation certificate.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="biz-description">Tell us about your business <span class="required">*</span></label>
+            <textarea id="biz-description" rows="4" placeholder="Describe your core services/products, target customers, and operational model."></textarea>
+            <small class="form-help"><span id="biz-description-count">0</span> / 200 characters minimum</small>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="biz-support-email">Support email <span class="required">*</span></label>
+              <input type="email" id="biz-support-email" placeholder="support@yourbusiness.com">
+            </div>
+            <div class="form-group">
+              <label for="biz-chargeback-email">Chargeback email <span class="required">*</span></label>
+              <input type="email" id="biz-chargeback-email" placeholder="chargebacks@yourbusiness.com">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="biz-staff-size">Staff size <span class="required">*</span></label>
+              <select id="biz-staff-size">
+                <option value="">Select staff size</option>
+                <option value="1-10">1 – 10</option>
+                <option value="11-50">11 – 50</option>
+                <option value="51-200">51 – 200</option>
+                <option value="201-500">201 – 500</option>
+                <option value="500+">500+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="biz-tin">TIN</label>
+              <input type="text" id="biz-tin" placeholder="Tax identification number">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="biz-website">Business website</label>
+            <input type="url" id="biz-website" placeholder="https://yourbusiness.com">
+          </div>
+
+          <div class="upload-section">
+            <h4>Business logo</h4>
+            <p class="section-description">Square logo, minimum 100&times;100px, for best results on the checkout form.</p>
+            <div class="dropzone" id="dropzone-logo" tabindex="0" role="button" aria-label="Upload business logo">
+              <input type="file" id="file-logo" accept=".png,.jpg,.jpeg" hidden>
+              <div class="dropzone-content">
+                <span class="dropzone-icon">&uarr;</span>
+                <span class="dropzone-text">Click to upload file</span>
+                <span class="dropzone-hint">PNG, JPG, JPEG are accepted. Max file size 5MB</span>
+              </div>
+              <div class="dropzone-file" id="dropzone-logo-file" hidden></div>
+            </div>
+          </div>
+
+          <div class="upload-section">
+            <h4>Social media</h4>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="social-facebook">Facebook username</label>
+                <input type="text" id="social-facebook" placeholder="facebook.com/yourbusiness">
+              </div>
+              <div class="form-group">
+                <label for="social-twitter">X (Twitter) username</label>
+                <input type="text" id="social-twitter" placeholder="@yourbusiness">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="social-instagram">Instagram username</label>
+                <input type="text" id="social-instagram" placeholder="@yourbusiness">
+              </div>
+              <div class="form-group">
+                <label for="social-linkedin">LinkedIn username</label>
+                <input type="text" id="social-linkedin" placeholder="linkedin.com/company/yourbusiness">
+              </div>
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <span></span>
+            <button type="button" class="btn-primary step-next" data-current="business-info" data-next="business-address">Save &amp; continue</button>
+          </div>
+        </section>
+
+        <!-- Step 2: Business Address -->
+        <section class="step-panel" id="panel-business-address" data-panel="business-address">
+          <h3>Address <span class="required">*</span></h3>
+
+          <div class="form-row form-row-3">
+            <div class="form-group">
+              <label for="addr-country">Country <span class="required">*</span></label>
+              <select id="addr-country">
+                <option value="NGA" selected>Nigeria</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="addr-state">State <span class="required">*</span></label>
+              <select id="addr-state">
+                <option value="">Select state</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="addr-lga">Local Government Area <span class="required">*</span></label>
+              <input type="text" id="addr-lga" placeholder="e.g. Ikeja">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="addr-line">Enter address <span class="required">*</span></label>
+            <input type="text" id="addr-line" placeholder="Street address">
+          </div>
+
+          <div class="form-group">
+            <label for="addr-landmark">Nearest landmark</label>
+            <input type="text" id="addr-landmark" placeholder="Nearest landmark">
+          </div>
+
+          <div class="upload-section">
+            <h4>Upload proof of business address <span class="required">*</span></h4>
+            <p class="section-description">Electricity bill, waste bill, water bill, rental agreement — issued within the last 3 months. Statement of account — issued within the last 6 months.</p>
+            <div class="dropzone" id="dropzone-address" tabindex="0" role="button" aria-label="Upload proof of business address">
+              <input type="file" id="file-address" accept=".png,.jpg,.jpeg,.pdf" hidden>
+              <div class="dropzone-content">
+                <span class="dropzone-icon">&uarr;</span>
+                <span class="dropzone-text">Click to upload file</span>
+                <span class="dropzone-hint">PNG, JPG, JPEG, PDF are accepted. Max file size 20MB</span>
+              </div>
+              <div class="dropzone-file" id="dropzone-address-file" hidden></div>
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <button type="button" class="btn-secondary step-back" data-prev="business-info">Back</button>
+            <button type="button" class="btn-primary step-next" data-current="business-address" data-next="account-info">Save &amp; continue</button>
+          </div>
+        </section>
+
+        <!-- Step 3: Account Information -->
+        <section class="step-panel" id="panel-account-info" data-panel="account-info">
+          <h3>Settlement Account <span class="required">*</span></h3>
+          <p class="section-description">This is the bank account where your business will receive its payouts and settlements.</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="acct-bank">Bank <span class="required">*</span></label>
+              <select id="acct-bank">
+                <option value="">Select your bank</option>
+                <option value="044">Access Bank</option>
+                <option value="063">Access Bank (Diamond)</option>
+                <option value="050">Ecobank Nigeria</option>
+                <option value="070">Fidelity Bank</option>
+                <option value="011">First Bank of Nigeria</option>
+                <option value="214">First City Monument Bank</option>
+                <option value="058">Guaranty Trust Bank</option>
+                <option value="030">Heritage Bank</option>
+                <option value="301">Jaiz Bank</option>
+                <option value="082">Keystone Bank</option>
+                <option value="526">Parallex Bank</option>
+                <option value="076">Polaris Bank</option>
+                <option value="101">Providus Bank</option>
+                <option value="221">Stanbic IBTC Bank</option>
+                <option value="068">Standard Chartered Bank</option>
+                <option value="232">Sterling Bank</option>
+                <option value="100">Suntrust Bank</option>
+                <option value="032">Union Bank of Nigeria</option>
+                <option value="033">United Bank For Africa</option>
+                <option value="215">Unity Bank</option>
+                <option value="035">Wema Bank</option>
+                <option value="057">Zenith Bank</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="acct-number">Account number <span class="required">*</span></label>
+              <input type="text" id="acct-number" placeholder="0000000000" maxlength="10">
+              <small class="form-help">10-digit account number</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="acct-name">Account name <span class="required">*</span></label>
+            <input type="text" id="acct-name" placeholder="Name on the bank account">
+            <small class="form-help">We can't verify this automatically yet — enter the account name exactly as it appears with your bank.</small>
+          </div>
+
+          <div class="step-actions">
+            <button type="button" class="btn-secondary step-back" data-prev="business-address">Back</button>
+            <button type="button" class="btn-primary step-next" data-current="account-info" data-next="owners">Save &amp; continue</button>
+          </div>
+        </section>
+
+        <!-- Step 4: Beneficial Owners -->
+        <section class="step-panel" id="panel-owners" data-panel="owners">
+          <h3>Business Director's Information <span class="required">*</span></h3>
+          <p class="section-description">Provide the details of your directors. Directors must be 18 years or older.</p>
+
+          <div id="directors-list" class="directors-list"></div>
+
+          <button type="button" class="btn-add-director" id="add-director">+ Add director</button>
+
+          <div class="step-actions">
+            <button type="button" class="btn-secondary step-back" data-prev="account-info">Back</button>
+            <button type="button" class="btn-primary step-next" data-current="owners" data-next="documents">Save &amp; continue</button>
+          </div>
+        </section>
+
+        <!-- Step 5: Company Registration Documents -->
+        <section class="step-panel" id="panel-documents" data-panel="documents">
+          <h3>Company Registration Documents</h3>
+
+          <div class="upload-section">
+            <h4>CAC document <span class="required">*</span></h4>
+            <p class="section-description">Certificate of Incorporation must include CAC form 7, which shows the list of all directors.</p>
+            <div class="dropzone" id="dropzone-cac" tabindex="0" role="button" aria-label="Upload CAC document">
+              <input type="file" id="file-cac" accept=".png,.jpg,.jpeg,.pdf" hidden>
+              <div class="dropzone-content">
+                <span class="dropzone-icon">&uarr;</span>
+                <span class="dropzone-text">Click to upload file</span>
+                <span class="dropzone-hint">PNG, PDF, JPEG, JPG are accepted. Max file size 20MB</span>
+              </div>
+              <div class="dropzone-file" id="dropzone-cac-file" hidden></div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="doc-bn">BN Number <span class="required">*</span></label>
+            <input type="text" id="doc-bn" placeholder="Business name registration number">
+          </div>
+
+          <div class="upload-section">
+            <h4>Status report <span class="required">*</span></h4>
+            <p class="section-description">Current CAC status report for your business.</p>
+            <div class="dropzone" id="dropzone-status" tabindex="0" role="button" aria-label="Upload status report">
+              <input type="file" id="file-status" accept=".png,.jpg,.jpeg,.pdf" hidden>
+              <div class="dropzone-content">
+                <span class="dropzone-icon">&uarr;</span>
+                <span class="dropzone-text">Click to upload file</span>
+                <span class="dropzone-hint">PNG, PDF, JPEG, JPG are accepted. Max file size 20MB</span>
+              </div>
+              <div class="dropzone-file" id="dropzone-status-file" hidden></div>
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <button type="button" class="btn-secondary step-back" data-prev="owners">Back</button>
+            <button type="button" class="btn-primary step-next" data-current="documents" data-next="agreement">Save &amp; continue</button>
+          </div>
+        </section>
+
+        <!-- Step 6: Agreement & Indemnity -->
+        <section class="step-panel" id="panel-agreement" data-panel="agreement">
+          <h3>Agreement &amp; Indemnity <span class="required">*</span></h3>
+          <div class="agreement-text">
+            <p>By submitting this application, you confirm that all information and documents provided are accurate and complete to the best of your knowledge. You authorize Payment App to verify the details submitted, including with third parties, and agree to indemnify Payment App against any loss arising from inaccurate information.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="agreement-signature">Type your full name as signature <span class="required">*</span></label>
+            <input type="text" id="agreement-signature" placeholder="Full name">
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="agreement-checkbox">
+            <label for="agreement-checkbox">I have read and agree to the <a href="#" class="link">Merchant Agreement</a> and <a href="#" class="link">Indemnity Terms</a>.</label>
+          </div>
+
+          <div class="step-actions">
+            <button type="button" class="btn-secondary step-back" data-prev="documents">Back</button>
+            <button type="button" class="btn-primary" id="submit-activation">Submit for review</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/business-activation.js"></script>
+</body>
+</html>
