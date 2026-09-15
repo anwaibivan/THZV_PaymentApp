@@ -63,6 +63,15 @@ button{font-family:inherit;cursor:pointer;}
 .payment-form label{display:block;font-size:11.5px;color:var(--text-muted);margin-bottom:5px;}
 .payment-form input{width:100%;border:1px solid var(--line-strong);border-radius:var(--radius);padding:9px 10px;font:inherit;font-size:13px;}
 .form-message{grid-column:1/-1;font-size:12.5px;color:var(--accent);min-height:16px;}
+.activation-nudge{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  background:var(--amber-soft);border:1px solid var(--amber);border-radius:var(--radius);
+  padding:14px 20px;margin-bottom:20px;font-size:13.5px;color:var(--amber);
+}
+.activation-nudge[hidden]{display:none;}
+.activation-nudge strong{color:var(--text);}
+.activation-nudge .btn-primary{flex-shrink:0;text-decoration:none;}
+
 .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:28px;overflow:hidden;}
 .kpi{background:var(--card);padding:18px 20px;}
 .kpi-label{font-size:12.5px;color:var(--text-muted);margin-bottom:10px;}

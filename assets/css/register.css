@@ -14,8 +14,6 @@
   --danger-soft:#F4E4E1;
   --amber:#9C6B14;
   --amber-soft:#F3E9D6;
-  --info:#2563A8;
-  --info-soft:#E0EDF7;
   --radius:6px;
 }
 
@@ -190,52 +188,6 @@ body{
 }
 .link:hover{
   text-decoration:underline;
-}
-
-.account-verification{
-  margin-top:16px;
-  display:none;
-}
-.account-verification.show{
-  display:block;
-}
-.verification-loading{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 16px;
-  background:var(--info-soft);
-  border:1px solid var(--info);
-  border-radius:var(--radius);
-  color:var(--info);
-  font-size:13px;
-}
-.verification-result{
-  padding:12px 16px;
-  border-radius:var(--radius);
-  font-size:13px;
-  font-weight:500;
-}
-.verification-result.success{
-  background:var(--accent-soft);
-  color:var(--accent);
-  border:1px solid var(--accent);
-}
-.verification-result.error{
-  background:var(--danger-soft);
-  color:var(--danger);
-  border:1px solid var(--danger);
-}
-.spinner{
-  width:14px;
-  height:14px;
-  border:2px solid var(--info);
-  border-top-color:transparent;
-  border-radius:50%;
-  animation:spin 0.6s linear infinite;
-}
-@keyframes spin{
-  to{transform:rotate(360deg);}
 }
 
 .btn-register{
